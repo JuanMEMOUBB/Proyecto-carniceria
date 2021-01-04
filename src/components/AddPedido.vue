@@ -1,0 +1,193 @@
+<template>
+  <div>
+    <form class="submit-form" @submit.prevent="submit">
+      <h2>Nuevo Pedido</h2>
+      <fieldset>
+        <input type="text" placeholder="Direccion" v-model="direccion">
+      </fieldset>
+      <input class="button-primary" type="submit" value="Send">
+    </form>
+  </div>
+</template>
+
+<script>
+import gql from "graphql-tag";
+import { InMemoryCache } from "apollo-cache-inmemory";
+//import { GET_PEDIDOS } from './PedidosList.vue';
+
+const ADD_PEDIDO = gql`
+  mutation addPedido($direccion: String!, $peso: Int!, $precio: Int!, $id_cliente: Int = 1) {
+  insert_pedido(objects: {
+    direccion: $direccion,  
+    peso: $peso, 
+    precio: $precio, 
+    id_cliente: $id_cliente
+    }
+  ) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+const ADD_DETALLE_PEDIDO = gql`
+mutation addDetallePedido($id_pedido: Int!, $id_producto: Int, $pesoIndividual: Int, $al_vacio: Boolean = false) {
+  insert_detallepedido(objects: {
+    id_pedido: $id_pedido, 
+    id_producto: $id_producto, 
+    peso: $pesoIndividual, 
+    al_vacio: $al_vacio
+    }
+  ) {
+    returning {
+        id_pedido
+      }
+  }
+}
+`;
+
+export default {
+  name: "AddPedido",
+  components: {  },
+  data() {
+    return {
+      direccion: "",
+      peso: "",
+      precio: "",
+      id_pedido: ""
+    };
+  },
+
+  computed:{
+         cart(){
+        return this.$store.getters.getShoppingCart
+        },
+        cartTotalPrice(){
+            return this.$store.getters.getCartTotalPrice
+        },
+        cartTotalWeight(){
+          return this.$store.getters.getTotalQuantity
+        },
+
+        getIdPedido(){
+        // if(this.id_pedido !== undefined ){
+          return this.id_pedido
+         //}
+        }
+     },
+
+     watch:{
+
+       id_pedido() {
+         if(this.id_pedido !== undefined){
+         this.insertarDetalle(this.id_pedido);
+         this.$store.dispatch('clearCart');
+         }
+       }
+
+     },
+     
+  apollo: {},
+  methods: {
+    submit() {
+      
+      const { direccion } = this.$data;
+       const  precio  = this.cartTotalPrice;
+       const  peso  = this.cartTotalWeight;
+       this.$apollo.mutate({
+        mutation: ADD_PEDIDO,
+        variables: {
+          direccion,
+          peso,
+          precio
+        },
+        refetchQueries: ["getPedidos"],
+
+        update: (cache, {data: { insert_pedido } }) => {
+           this.id_pedido = insert_pedido.returning[0].id;
+
+          console.log("id: "+ this.id_pedido);
+        }
+
+      });
+      this.direccion = "";
+      this.peso = "";
+      this.precio = "";
+
+    //  let pesoIndividual;
+    //  let id_producto;
+      //const id_pedido = id;
+
+      //console.log("espera mi id: "+ this.getIdPedido);
+      //const pedidoID = await this.getIdPedido;
+      
+
+      
+
+      //crear metodo que contenga la mutacion
+     // this.$store.dispatch('clearCart');
+    },
+
+    insertarDetalle(pedidoId){
+      for(let i=0;i<this.cart.length;i++){
+        console.log("entro for id: "+ pedidoId);
+        //id_producto = this.cart[i].id;
+        //pesoIndividual = this.cart[i].cant;
+
+        this.$apollo.mutate({
+        mutation: ADD_DETALLE_PEDIDO,
+        variables: {
+          "id_pedido" : pedidoId,
+          "id_producto" : this.cart[i].id,
+          "pesoIndividual" : this.cart[i].cant
+        },
+      });
+      }
+
+      
+    },
+
+    async insertPedido(){
+
+      const { direccion } = this.$data;
+       const  precio  = this.cartTotalPrice;
+       const  peso  = this.cartTotalWeight;
+
+       let pedidoID
+       this.$apollo.mutate({
+        mutation: ADD_PEDIDO,
+        variables: {
+          direccion,
+          peso,
+          precio
+        },
+        refetchQueries: ["getPedidos"],
+
+        update: (cache, {data: { insert_pedido } }) => {
+           /*this.id_pedido*/ pedidoID = insert_pedido.returning[0].id;
+
+          console.log("id: "+ this.id_pedido);
+        },
+
+      });
+
+      let idPedido = await pedidoID;
+
+      return idPedido
+
+    }
+
+  }
+};
+</script>
+
+<style>
+form {
+  width: 50%;
+}
+.submit-form {
+  display: flex;
+  justify-content: center;
+}
+</style>
