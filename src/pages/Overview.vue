@@ -1,300 +1,515 @@
-<!-- <template>
-  <div class="home">
-    <img alt="Vue logo">
-    <carrito-compra/>
-    <producto-list/>
-  </div>
-</template>
-
-<script>
-import CarritoCompra from '../components/CarritoCompra.vue'
-import ProductoList from '../components/ProductoList.vue'
-
-export default {
-  name: 'home',
-  components: {
-    ProductoList,
-    CarritoCompra
-    
-  }
-}
-</script>
--->
-
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      <!--
-      <div class="row">
-        <div class="col-xl-3 col-md-6">
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Capacity</p>
-              <h4 class="card-title">105GB</h4>
-            </div>
-            <div slot="footer">
-              <i class="fa fa-refresh"></i>Updated now
-            </div>
-          </stats-card>
-        </div>
-
-        <div class="col-xl-3 col-md-6">
-          <stats-card>
-            <div slot="header" class="icon-success">
-              <i class="nc-icon nc-light-3 text-success"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Revenue</p>
-              <h4 class="card-title">$1,345</h4>
-            </div>
-            <div slot="footer">
-              <i class="fa fa-calendar-o"></i>Last day
-            </div>
-          </stats-card>
-        </div>
-
-        <div class="col-xl-3 col-md-6">
-          <stats-card>
-            <div slot="header" class="icon-danger">
-              <i class="nc-icon nc-vector text-danger"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Errors</p>
-              <h4 class="card-title">23</h4>
-            </div>
-            <div slot="footer">
-              <i class="fa fa-clock-o"></i>Last day
-            </div>
-          </stats-card>
-        </div>
-
-        <div class="col-xl-3 col-md-6">
-          <stats-card>
-            <div slot="header" class="icon-info">
-              <i class="nc-icon nc-favourite-28 text-primary"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Followers</p>
-              <h4 class="card-title">+45</h4>
-            </div>
-            <div slot="footer">
-              <i class="fa fa-refresh"></i>Updated now
-            </div>
-          </stats-card>
-        </div>
-
-      </div>
-      -->
-      <div class="row">
-        <div class="col-md-8">
-          <chart-card :chart-data="lineChart.data"
-                      :chart-options="lineChart.options"
-                      :responsive-options="lineChart.responsiveOptions">
-            <template slot="header">
-              <h4 class="card-title">Pedidos</h4>
-              <p class="card-category">Pedidos en las últimas 24 horas</p>
-            </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Pedidos realizados
-                <i class="fa fa-circle text-danger"></i> Pedidos cancelados
-                <i class="fa fa-circle text-warning"></i> Pedidos pendientes
-              </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-history"></i> Updated 3 minutes ago
-              </div>
-            </template>
-          </chart-card>
-        </div>
-
-        <div class="col-md-4">
-          <chart-card :chart-data="pieChart.data" chart-type="Pie">
-            <template slot="header">
-              <h4 class="card-title">Pedidos</h4>
-              <p class="card-category">Pedidos en la última semana</p>
-            </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Pedidos realizados
-                <i class="fa fa-circle text-danger"></i> Pedidos cancelados
-                <i class="fa fa-circle text-warning"></i> Pedidos pendientes
-              </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-clock-o"></i> Los últimos 7 días
-              </div>
-            </template>
-          </chart-card>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <chart-card
-            :chart-data="barChart.data"
-            :chart-options="barChart.options"
-            :chart-responsive-options="barChart.responsiveOptions"
-            chart-type="Bar">
-            <template slot="header">
-              <h4 class="card-title">Ingresos y egresos 2020</h4>
-              <p class="card-category">Todos los pedidos</p>
-            </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Ingresos
-                <i class="fa fa-circle text-danger"></i> Egresos
-              </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-check"></i> Información certificada
-              </div>
-            </template>
-          </chart-card>
-        </div>
-        <!--
-        <div class="col-md-6">
-          <card>
-            <template slot="header">
-              <h5 class="title">Tasks</h5>
-              <p class="category">Backend development</p>
-            </template>
-            <l-table :data="tableData.data"
-                     :columns="tableData.columns">
-              <template slot="columns"></template>
-
-              <template slot-scope="{row}">
-                <td>
-                  <base-checkbox v-model="row.checked"></base-checkbox>
-                </td>
-                <td>{{row.title}}</td>
-                <td class="td-actions text-right">
-                  <button type="button" class="btn-simple btn btn-xs btn-info" v-tooltip.top-center="editTooltip">
-                    <i class="fa fa-edit"></i>
-                  </button>
-                  <button type="button" class="btn-simple btn btn-xs btn-danger" v-tooltip.top-center="deleteTooltip">
-                    <i class="fa fa-times"></i>
-                  </button>
-                </td>
-              </template>
-            </l-table>
-            <div class="footer">
-              <hr>
-              <div class="stats">
-                <i class="fa fa-history"></i> Updated 3 minutes ago
-              </div>
-            </div>
-          </card>
-
-        </div>
-        -->
-      </div>
-    </div>
+  <div>
+    <mdb-input class="mt-0" v-model="search" label="Buscar por nombre" />
+    <mdb-datatable-2 v-model="data" :searching="{value: search, field: 'name'}" />
   </div>
 </template>
-<script>
-  import ChartCard from 'src/components/Cards/ChartCard.vue'
-  import StatsCard from 'src/components/Cards/StatsCard.vue'
-  import LTable from 'src/components/Table.vue'
 
+<script>
+  import { mdbDatatable2, mdbInput } from 'mdbvue';
   export default {
+    name: 'DatatablePage',
     components: {
-      LTable,
-      ChartCard,
-      StatsCard
+      mdbDatatable2,
+      mdbInput
     },
-    data () {
+    data() {
       return {
-        editTooltip: 'Edit Task',
-        deleteTooltip: 'Remove',
-        pieChart: {
-          data: {
-            labels: ['40%', '20%', '40%'],
-            series: [40, 20, 40]
-          }
-        },
-        lineChart: {
-          data: {
-            labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
-            series: [
-              [287, 385, 490, 492, 554, 586, 698, 695],
-              [67, 152, 143, 240, 287, 335, 435, 437],
-              [23, 113, 67, 108, 190, 239, 307, 308]
-            ]
-          },
-          options: {
-            low: 0,
-            high: 800,
-            showArea: false,
-            height: '245px',
-            axisX: {
-              showGrid: false
-            },
-            lineSmooth: true,
-            showLine: true,
-            showPoint: true,
-            fullWidth: true,
-            chartPadding: {
-              right: 50
-            }
-          },
-          responsiveOptions: [
-            ['screen and (max-width: 640px)', {
-              axisX: {
-                labelInterpolationFnc (value) {
-                  return value[0]
-                }
-              }
-            }]
-          ]
-        },
-        barChart: {
-          data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            series: [
-              [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-              [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-            ]
-          },
-          options: {
-            seriesBarDistance: 10,
-            axisX: {
-              showGrid: false
-            },
-            height: '245px'
-          },
-          responsiveOptions: [
-            ['screen and (max-width: 640px)', {
-              seriesBarDistance: 5,
-              axisX: {
-                labelInterpolationFnc (value) {
-                  return value[0]
-                }
-              }
-            }]
-          ]
-        },
-        tableData: {
-          data: [
-            {title: 'Sign contract for "What are conference organizers afraid of?"', checked: false},
-            {title: 'Lines From Great Russian Literature? Or E-mails From My Boss?', checked: true},
+        search: '',
+        data: {
+          columns: [
             {
-              title: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-              checked: true
+              label: 'Name',
+              field: 'name',
+              sort: true
             },
-            {title: 'Create 4 Invisible User Experiences you Never Knew About', checked: false},
-            {title: 'Read "Following makes Medium better"', checked: false},
-            {title: 'Unfollow 5 enemies from twitter', checked: false}
-          ]
+            {
+              label: 'Position',
+              field: 'position',
+              sort: true
+            },
+            {
+              label: 'Office',
+              field: 'office',
+              sort: true
+            },
+            {
+              label: 'Age',
+              field: 'age',
+              sort: true
+            },
+            {
+              label: 'Start date',
+              field: 'date',
+              sort: true
+            },
+            {
+              label: 'Salary',
+              field: 'salary',
+              sort: false,
+              format: value => "£" + value
+            }
+          ],
+          rows: [
+            {
+              name: 'Tiger Nixon',
+              position: 'System Architect',
+              office: 'Edinburgh',
+              age: '61',
+              date: '2011/04/25',
+              salary: '$320'
+            },
+            {
+              name: 'Garrett Winters',
+              position: 'Accountant',
+              office: 'Tokyo',
+              age: '63',
+              date: '2011/07/25',
+              salary: '$170'
+            },
+            {
+              name: 'Ashton Cox',
+              position: 'Junior Technical Author',
+              office: 'San Francisco',
+              age: '66',
+              date: '2009/01/12',
+              salary: '$86'
+            },
+            {
+              name: 'Cedric Kelly',
+              position: 'Senior Javascript Developer',
+              office: 'Edinburgh',
+              age: '22',
+              date: '2012/03/29',
+              salary: '$433'
+            },
+            {
+              name: 'Airi Satou',
+              position: 'Accountant',
+              office: 'Tokyo',
+              age: '33',
+              date: '2008/11/28',
+              salary: '$162'
+            },
+            {
+              name: 'Brielle Williamson',
+              position: 'Integration Specialist',
+              office: 'New York',
+              age: '61',
+              date: '2012/12/02',
+              salary: '$372'
+            },
+            {
+              name: 'Herrod Chandler',
+              position: 'Sales Assistant',
+              office: 'San Francisco',
+              age: '59',
+              date: '2012/08/06',
+              salary: '$137'
+            },
+            {
+              name: 'Rhona Davidson',
+              position: 'Integration Specialist',
+              office: 'Tokyo',
+              age: '55',
+              date: '2010/10/14',
+              salary: '$327'
+            },
+            {
+              name: 'Colleen Hurst',
+              position: 'Javascript Developer',
+              office: 'San Francisco',
+              age: '39',
+              date: '2009/09/15',
+              salary: '$205'
+            },
+            {
+              name: 'Sonya Frost',
+              position: 'Software Engineer',
+              office: 'Edinburgh',
+              age: '23',
+              date: '2008/12/13',
+              salary: '$103'
+            },
+            {
+              name: 'Jena Gaines',
+              position: 'Office Manager',
+              office: 'London',
+              age: '30',
+              date: '2008/12/19',
+              salary: '$90'
+            },
+            {
+              name: 'Quinn Flynn',
+              position: 'Support Lead',
+              office: 'Edinburgh',
+              age: '22',
+              date: '2013/03/03',
+              salary: '$342'
+            },
+            {
+              name: 'Charde Marshall',
+              position: 'Regional Director',
+              office: 'San Francisco',
+              age: '36',
+              date: '2008/10/16',
+              salary: '$470'
+            },
+            {
+              name: 'Haley Kennedy',
+              position: 'Senior Marketing Designer',
+              office: 'London',
+              age: '43',
+              date: '2012/12/18',
+              salary: '$313'
+            },
+            {
+              name: 'Tatyana Fitzpatrick',
+              position: 'Regional Director',
+              office: 'London',
+              age: '19',
+              date: '2010/03/17',
+              salary: '$385'
+            },
+            {
+              name: 'Michael Silva',
+              position: 'Marketing Designer',
+              office: 'London',
+              age: '66',
+              date: '2012/11/27',
+              salary: '$198'
+            },
+            {
+              name: 'Paul Byrd',
+              position: 'Chief Financial Officer (CFO)',
+              office: 'New York',
+              age: '64',
+              date: '2010/06/09',
+              salary: '$725'
+            },
+            {
+              name: 'Gloria Little',
+              position: 'Systems Administrator',
+              office: 'New York',
+              age: '59',
+              date: '2009/04/10',
+              salary: '$237'
+            },
+            {
+              name: 'Bradley Greer',
+              position: 'Software Engineer',
+              office: 'London',
+              age: '41',
+              date: '2012/10/13',
+              salary: '$132'
+            },
+            {
+              name: 'Dai Rios',
+              position: 'Personnel Lead',
+              office: 'Edinburgh',
+              age: '35',
+              date: '2012/09/26',
+              salary: '$217'
+            },
+            {
+              name: 'Jenette Caldwell',
+              position: 'Development Lead',
+              office: 'New York',
+              age: '30',
+              date: '2011/09/03',
+              salary: '$345'
+            },
+            {
+              name: 'Yuri Berry',
+              position: 'Chief Marketing Officer (CMO)',
+              office: 'New York',
+              age: '40',
+              date: '2009/06/25',
+              salary: '$675'
+            },
+            {
+              name: 'Caesar Vance',
+              position: 'Pre-Sales Support',
+              office: 'New York',
+              age: '21',
+              date: '2011/12/12',
+              salary: '$106'
+            },
+            {
+              name: 'Doris Wilder',
+              position: 'Sales Assistant',
+              office: 'Sidney',
+              age: '23',
+              date: '2010/09/20',
+              salary: '$85'
+            },
+            {
+              name: 'Angelica Ramos',
+              position: 'Chief Executive Officer (CEO)',
+              office: 'London',
+              age: '47',
+              date: '2009/10/09',
+              salary: '$1'
+            },
+            {
+              name: 'Gavin Joyce',
+              position: 'Developer',
+              office: 'Edinburgh',
+              age: '42',
+              date: '2010/12/22',
+              salary: '$92'
+            },
+            {
+              name: 'Jennifer Chang',
+              position: 'Regional Director',
+              office: 'Singapore',
+              age: '28',
+              date: '2010/11/14',
+              salary: '$357'
+            },
+            {
+              name: 'Brenden Wagner',
+              position: 'Software Engineer',
+              office: 'San Francisco',
+              age: '28',
+              date: '2011/06/07',
+              salary: '$206'
+            },
+            {
+              name: 'Fiona Green',
+              position: 'Chief Operating Officer (COO)',
+              office: 'San Francisco',
+              age: '48',
+              date: '2010/03/11',
+              salary: '$850'
+            },
+            {
+              name: 'Shou Itou',
+              position: 'Regional Marketing',
+              office: 'Tokyo',
+              age: '20',
+              date: '2011/08/14',
+              salary: '$163'
+            },
+            {
+              name: 'Michelle House',
+              position: 'Integration Specialist',
+              office: 'Sidney',
+              age: '37',
+              date: '2011/06/02',
+              salary: '$95'
+            },
+            {
+              name: 'Suki Burks',
+              position: 'Developer',
+              office: 'London',
+              age: '53',
+              date: '2009/10/22',
+              salary: '$114'
+            },
+            {
+              name: 'Prescott Bartlett',
+              position: 'Technical Author',
+              office: 'London',
+              age: '27',
+              date: '2011/05/07',
+              salary: '$145'
+            },
+            {
+              name: 'Gavin Cortez',
+              position: 'Team Leader',
+              office: 'San Francisco',
+              age: '22',
+              date: '2008/10/26',
+              salary: '$235'
+            },
+            {
+              name: 'Martena Mccray',
+              position: 'Post-Sales support',
+              office: 'Edinburgh',
+              age: '46',
+              date: '2011/03/09',
+              salary: '$324'
+            },
+            {
+              name: 'Unity Butler',
+              position: 'Marketing Designer',
+              office: 'San Francisco',
+              age: '47',
+              date: '2009/12/09',
+              salary: '$85'
+            },
+            {
+              name: 'Howard Hatfield',
+              position: 'Office Manager',
+              office: 'San Francisco',
+              age: '51',
+              date: '2008/12/16',
+              salary: '$164'
+            },
+            {
+              name: 'Hope Fuentes',
+              position: 'Secretary',
+              office: 'San Francisco',
+              age: '41',
+              date: '2010/02/12',
+              salary: '$109'
+            },
+            {
+              name: 'Vivian Harrell',
+              position: 'Financial Controller',
+              office: 'San Francisco',
+              age: '62',
+              date: '2009/02/14',
+              salary: '$452'
+            },
+            {
+              name: 'Timothy Mooney',
+              position: 'Office Manager',
+              office: 'London',
+              age: '37',
+              date: '2008/12/11',
+              salary: '$136'
+            },
+            {
+              name: 'Jackson Bradshaw',
+              position: 'Director',
+              office: 'New York',
+              age: '65',
+              date: '2008/09/26',
+              salary: '$645'
+            },
+            {
+              name: 'Olivia Liang',
+              position: 'Support Engineer',
+              office: 'Singapore',
+              age: '64',
+              date: '2011/02/03',
+              salary: '$234'
+            },
+            {
+              name: 'Bruno Nash',
+              position: 'Software Engineer',
+              office: 'London',
+              age: '38',
+              date: '2011/05/03',
+              salary: '$163'
+            },
+            {
+              name: 'Sakura Yamamoto',
+              position: 'Support Engineer',
+              office: 'Tokyo',
+              age: '37',
+              date: '2009/08/19',
+              salary: '$139'
+            },
+            {
+              name: 'Thor Walton',
+              position: 'Developer',
+              office: 'New York',
+              age: '61',
+              date: '2013/08/11',
+              salary: '$98'
+            },
+            {
+              name: 'Finn Camacho',
+              position: 'Support Engineer',
+              office: 'San Francisco',
+              age: '47',
+              date: '2009/07/07',
+              salary: '$87'
+            },
+            {
+              name: 'Serge Baldwin',
+              position: 'Data Coordinator',
+              office: 'Singapore',
+              age: '64',
+              date: '2012/04/09',
+              salary: '$138'
+            },
+            {
+              name: 'Zenaida Frank',
+              position: 'Software Engineer',
+              office: 'New York',
+              age: '63',
+              date: '2010/01/04',
+              salary: '$125'
+            },
+            {
+              name: 'Zorita Serrano',
+              position: 'Software Engineer',
+              office: 'San Francisco',
+              age: '56',
+              date: '2012/06/01',
+              salary: '$115'
+            },
+            {
+              name: 'Jennifer Acosta',
+              position: 'Junior Javascript Developer',
+              office: 'Edinburgh',
+              age: '43',
+              date: '2013/02/01',
+              salary: '$75'
+            },
+            {
+              name: 'Cara Stevens',
+              position: 'Sales Assistant',
+              office: 'New York',
+              age: '46',
+              date: '2011/12/06',
+              salary: '$145'
+            },
+            {
+              name: 'Hermione Butler',
+              position: 'Regional Director',
+              office: 'London',
+              age: '47',
+              date: '2011/03/21',
+              salary: '$356'
+            },
+            {
+              name: 'Lael Greer',
+              position: 'Systems Administrator',
+              office: 'London',
+              age: '21',
+              date: '2009/02/27',
+              salary: '$103'
+            },
+            {
+              name: 'Jonas Alexander',
+              position: 'Developer',
+              office: 'San Francisco',
+              age: '30',
+              date: '2010/07/14',
+              salary: '$86'
+            },
+            {
+              name: 'Shad Decker',
+              position: 'Regional Director',
+              office: 'Edinburgh',
+              age: '51',
+              date: '2008/11/13',
+              salary: '$183'
+            },
+            {
+              name: 'Michael Bruce',
+              position: 'Javascript Developer',
+              office: 'Singapore',
+              age: '29',
+              date: '2011/06/27',
+              salary: '$183'
+            },
+            {
+              name: 'Donna Snider',
+              position: 'Customer Support',
+              office: 'New York',
+              age: '27',
+              date: '2011/01/25',
+              salary: '$112'
+            }
+            ]
         }
       }
     }
   }
 </script>
-<style>
-
-</style>
-

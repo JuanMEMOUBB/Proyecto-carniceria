@@ -62,7 +62,7 @@ const routes = [
       {
         path: 'upgrade',
         name: 'Upgrade to PRO',
-        component: CarritoCompra
+        component: Home
       }
     ]
   },

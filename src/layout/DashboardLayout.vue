@@ -2,9 +2,9 @@
   <div class="wrapper">
     <side-bar>
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/admin/home">
-        <i class="nc-icon nc-chart-pie-35"></i>
-        <p>Gráficos</p>
+      <sidebar-link to="/admin/overview">
+        <i class="nc-icon nc-bullet-list-67"></i>
+        <p>Tienda</p>
       </sidebar-link>
       <sidebar-link to="/admin/user">
         <i class="nc-icon nc-circle-09"></i>
@@ -29,13 +29,25 @@
         <p>Maps</p>
       </sidebar-link>
 
-      <!--
-      <sidebar-link to="/admin/notifications">
-        <i class="nc-icon nc-bell-55"></i>
-        <p>Notifications</p>
+      <sidebar-link to="/admin/icons">
+        <i class="nc-icon nc-paper-2"></i>
+        <p>Cuentas</p>
       </sidebar-link>
 
+      
+      <sidebar-link to="/admin/icons">
+        <i class="nc-icon nc-bell-55"></i>
+        <p>Sobre Nosotros</p>
+      </sidebar-link>
 
+      <sidebar-link to="/admin/icons">
+        <i class="nc-icon nc-bell-55"></i>
+        <p>Contáctanos</p>
+      </sidebar-link>
+
+      
+
+      <!--
       <template slot="bottom-links">
         <sidebar-link class="active"
                       to="/admin/upgrade">

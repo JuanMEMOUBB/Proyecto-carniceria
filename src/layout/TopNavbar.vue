@@ -49,7 +49,7 @@
           </li>
           <li class="nav-item">
             <sidebar-link class="nav-link" to="/admin/carrito">
-              Carrito
+            <i class="nc-icon nc-cart-simple"></i>
             </sidebar-link>
           </li>
           <!--
