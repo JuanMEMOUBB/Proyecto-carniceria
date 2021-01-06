@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Carnicería 25</a>
+      <a class="navbar-brand" href="#">Carnicería Benjamín</a>
       <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
@@ -14,13 +14,19 @@
         <span class="navbar-toggler-bar burger-lines"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end">
+        
+        <!--
         <ul class="nav navbar-nav mr-auto">
           <li class="nav-item">
             <!--
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="nc-icon nc-palette"></i>
             </a>
-            -->
+
+            
+            ->
+
+
           </li>
           <base-dropdown tag="li">
             <template slot="title">
@@ -41,6 +47,8 @@
             </a>
           </li>
         </ul>
+
+        -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="#">

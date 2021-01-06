@@ -1,4 +1,4 @@
-import DashboardLayout from '../layout/DashboardLayout.vue'
+/*import DashboardLayout from '../layout/DashboardLayout.vue'
 // GeneralViews
 import NotFound from '../pages/NotFoundPage.vue'
 

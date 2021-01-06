@@ -2,7 +2,7 @@
   <div class="wrapper">
     <side-bar>
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/admin/overview">
+      <sidebar-link to="/admin/home">
         <i class="nc-icon nc-bullet-list-67"></i>
         <p>Tienda</p>
       </sidebar-link>
@@ -10,7 +10,7 @@
         <i class="nc-icon nc-circle-09"></i>
         <p>Perfil usuario</p>
       </sidebar-link>
-      <sidebar-link to="/admin/table-list">
+      <sidebar-link to="/admin/clientes">
         <i class="nc-icon nc-notes"></i>
         <p>Clientes</p>
       </sidebar-link>
@@ -35,7 +35,7 @@
       </sidebar-link>
 
       
-      <sidebar-link to="/admin/icons">
+      <sidebar-link to="/admin/tienda">
         <i class="nc-icon nc-bell-55"></i>
         <p>Sobre Nosotros</p>
       </sidebar-link>

@@ -12,9 +12,9 @@ import DashboardLayout from 'src/layout/DashboardLayout.vue'
 import NotFound from 'src/pages/NotFoundPage.vue'
 
 // Admin pages
-import Overview from 'src/pages/Overview.vue'
+import Tienda from 'src/pages/Tienda.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
-import TableList from 'src/pages/TableList.vue'
+import Clientes from 'src/pages/Clientes.vue'
 import Typography from 'src/pages/Typography.vue'
 import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
@@ -39,12 +39,12 @@ export default new Router({
     {
         path: '/admin',
         component: DashboardLayout,
-        redirect: '/admin/overview',
+        redirect: '/admin/tienda',
         children: [
           {
-            path: 'overview',
-            name: 'Overview',
-            component: Overview
+            path: 'home',
+            name: 'Home',
+            component: Home
           },
           {
             path: 'user',
@@ -52,9 +52,9 @@ export default new Router({
             component: UserProfile
           },
           {
-            path: 'table-list',
-            name: 'Table List',
-            component: TableList
+            path: 'clientes',
+            name: 'Clientes',
+            component: Clientes
           },
           {
             path: 'typography',
@@ -65,6 +65,11 @@ export default new Router({
             path: 'icons',
             name: 'Icons',
             component: Icons
+          },
+          {
+            path: 'tienda',
+            name: 'Tienda',
+            component: Tienda
           },
           {
             path: 'maps',

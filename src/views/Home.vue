@@ -3,6 +3,7 @@
     <img alt="Vue logo">
     <carrito-compra/>
     <producto-list/>
+    
   </div>
 </template>
 
