@@ -1,0 +1,179 @@
+<template>
+  <div class="container">
+    <div id="vue-table" style="overflow-x:auto;">
+      
+      <input type="text" v-model="search" placeholder="Busqueda" class="form-control" />
+      <input type="radio" id="1" value = 1 name="Categoria" v-model="value">
+      <label for="1">Por Nombre </label>
+        <input type="radio" id="2" value = 2 name="Categoria" v-model="value">
+        <label for="2">Por Ciudad</label>
+      <table class="table table-striped">
+        
+        <thead>
+          <tr>
+            <th v-for="column in columns" v-bind:key="column" >
+              <a href="#" 
+                v-on:click= "sortBy(column)"
+                v-bind:class="{active: sortKey == column}"
+                >
+                {{ column }}
+              </a>
+            </th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr v-for="people in  filterPeople" v-bind:key="people.id">
+            <td>{{ people.nombre }}</td>
+            <td>{{ people.apellido_paterno }}  {{people.apellido_materno }}</td>
+            <td>{{ onlyCity(people.direccion) }}</td>
+            <td>{{ people.email }}</td>
+            <td>{{ people.telefono_celular }}</td>
+            <td>{{ people.telefono_fijo }}</td>
+            <td><b-button size="sm" @click="verPedidos(people.id, $event.target)" class="mr-1">
+          Ver Pedidos
+        </b-button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- InfoModal -->
+      <b-modal v-if="infoModal.content" :id="infoModal.id" title="Pedidos" ok-only @hide="resetInfoModal">
+    <pre>{{ infoModal.content }}</pre>
+  </b-modal>
+    </div>
+  </div>
+</template>
+
+<script>
+
+import gql from "graphql-tag";
+const GET_CLIENTES = gql`
+  query getClientes {
+    cliente {
+    id
+    email
+    nombre
+    apellido_paterno
+    apellido_materno
+    direccion
+    telefono_celular
+    telefono_fijo
+  }
+  }
+`;
+
+const GET_PEDIDOS_DE_CLIENTE = gql`
+query getPedidosDeCliente($_eq: Int!) {
+  pedido(where: {id_cliente: {_eq: $_eq}}) {
+    direccion
+    estado_pedido
+    peso
+    precio
+    fecha_despacho
+    nombre_empresa_despacho
+    numero_seguimiento
+    detallepedidos {
+      producto {
+        nombre
+      }
+      peso
+      al_vacio
+    }
+  }
+}
+`;
+
+
+export default {
+  name: "Tienda2",
+
+  data(){
+    return {  
+    
+    value: "1",
+
+    sortKey: '',
+    
+    search: '',
+    
+    reverse: false,
+    
+    columns: ['nombre', 'apellido','ciudad','email','celular','telefono'],
+    
+    cliente: [],
+
+    pedidoCliente: '',
+
+
+    infoModal: {
+      id: 'info-modal',
+      content: '',
+      id_cliente: ''
+    }
+  }
+  },
+  apollo: {
+    cliente: {
+      query: GET_CLIENTES
+    }    
+  },
+  methods: {
+    sortBy: function(sortKey) {
+      this.reverse = (this.sortKey === sortKey) ? ! this.reverse : false;
+      this.sortKey = sortKey;
+    },
+    
+    onlyCity: function(value){
+
+      let ciudad = value.split(",")
+      return ciudad[1];
+    },
+
+    //metodos modal
+    async verPedidos(clienteID, button){
+      this.infoModal.id_cliente = clienteID;
+      this.pedidoCliente = await this.$apollo.query({
+        query: GET_PEDIDOS_DE_CLIENTE,
+        variables: {
+          "_eq": clienteID
+        }
+      });
+      console.log(this.pedidoCliente)
+      this.infoModal.content = JSON.stringify(this.pedidoCliente.data, null, 2);
+      this.$root.$emit('bv::show::modal', this.infoModal.id, button);
+    },
+    resetInfoModal() {
+      this.infoModal.id_cliente = '';
+      this.infoModal.content = '';
+    }
+  },
+  
+
+  computed:{
+    filterPeople: function(){
+      if(this.value === "1"){
+      return this.cliente.filter((people) => {
+        return ( people.nombre.toLowerCase().match(this.search.toLowerCase()) || people.apellido_paterno.toLowerCase().match(this.search.toLowerCase()) || people.apellido_materno.toLowerCase().match(this.search.toLowerCase()) );
+      });
+      }
+      if(this.value === "2") {
+      return this.cliente.filter((people) => {
+        return  people.direccion.toLowerCase().match(this.search.toLowerCase());
+      });
+      }
+
+    },
+  },
+
+
+}
+  
+
+</script>
+
+<style >
+
+
+</style>
+

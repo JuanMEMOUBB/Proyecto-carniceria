@@ -14,8 +14,9 @@ import NotFound from 'src/pages/NotFoundPage.vue'
 // Admin pages
 import Tienda from 'src/pages/Tienda.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
-import Clientes from 'src/pages/Clientes.vue'
+import ClientesTable from 'src/pages/ClientesTable.vue'
 import Typography from 'src/pages/Typography.vue'
+import ProductosTable from 'src/pages/ProductosTable.vue'
 import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
@@ -54,12 +55,12 @@ export default new Router({
           {
             path: 'clientes',
             name: 'Clientes',
-            component: Clientes
+            component: ClientesTable
           },
           {
             path: 'typography',
             name: 'Typography',
-            component: Typography
+            component: ProductosTable
           },
           {
             path: 'icons',
@@ -69,7 +70,7 @@ export default new Router({
           {
             path: 'tienda',
             name: 'Tienda',
-            component: Tienda
+            component: Notifications
           },
           {
             path: 'maps',
