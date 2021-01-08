@@ -6,10 +6,13 @@ import ClienteView from './views/ClienteView.vue'
 import AddCliente from './components/AddCliente.vue'
 import MiPedido from './views/MiPedido.vue'
 import CarritoCompra from './components/CarritoCompra.vue'
+import Login from './components/Login.vue'
 
 import DashboardLayout from 'src/layout/DashboardLayout.vue'
+import DashboardLayoutClient from 'src/layout/DashboardLayoutClient.vue'
 // GeneralViews
 import NotFound from 'src/pages/NotFoundPage.vue'
+import Main from './views/Main.vue'
 
 // Admin pages
 import Tienda from 'src/pages/Tienda.vue'
@@ -21,6 +24,10 @@ import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
 
+//Client pages
+import  PedidoCliente from 'src/pages/PedidoCliente.vue'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -29,16 +36,64 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'main',
+      component: Main
+    },
+    /*{
+      path: '/',
       name: 'home',
       component: DashboardLayout
+    },*/
+    {
+      path: "/login",
+      name: "login",
+      component: Login
     },
    /* {
         path: '/',
         component: DashboardLayout,
         redirect: '/admin/overview'
     },*/
+    {   path: '/cliente',
+        name: 'clienteView',
+        component: DashboardLayoutClient,
+        redirect: '/cliente/tienda',
+        children: [
+          {
+            path: 'home',
+            name: 'Home',
+            component: Home
+          },
+          {
+          path: 'user',
+            name: 'User',
+            component: UserProfile
+          },
+          {
+            path: 'upgrade',
+            name: 'Upgrade to PRO',
+            component: PedidoCliente
+          },
+          {
+            path: 'tienda',
+            name: 'Tienda',
+            component: Notifications
+          },
+          {
+            path: 'icons',
+            name: 'Icons',
+            component: Icons
+          },
+          {
+            path: 'carrito',
+            name: 'carrito',
+            component: MiPedido  
+          },
+        ]
+      },
     {
         path: '/admin',
+        name: 'adminView',
         component: DashboardLayout,
         redirect: '/admin/tienda',
         children: [
