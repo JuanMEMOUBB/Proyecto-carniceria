@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Carnicería Benjamín</a>
+      <a class="navbar-brand" href="#">25 Carnicería Benjamín</a>
       <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
@@ -18,7 +18,7 @@
         <!--
         <ul class="nav navbar-nav mr-auto">
           <li class="nav-item">
-            <!--
+            
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="nc-icon nc-palette"></i>
             </a>
@@ -51,13 +51,14 @@
         -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <sidebar-link class="nav-link" to="/admin/carritoCompra">
               Perfil
-            </a>
+            </sidebar-link>
           </li>
           <li class="nav-item">
             <sidebar-link class="nav-link" to="/admin/carrito">
             <i class="nc-icon nc-cart-simple"></i>
+            <a> ${{ cartTotalPrice }}</a>
             </sidebar-link>
           </li>
           <!--
@@ -87,7 +88,10 @@
       routeName () {
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
-      }
+      },
+      cartTotalPrice(){
+            return this.$store.getters.getCartTotalPrice
+        }
     },
     data () {
       return {

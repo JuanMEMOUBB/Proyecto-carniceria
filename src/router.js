@@ -12,6 +12,7 @@ import DashboardLayout from 'src/layout/DashboardLayout.vue'
 import NotFound from 'src/pages/NotFoundPage.vue'
 
 // Admin pages
+import Prueba from 'src/pages/Prueba.vue'
 import Tienda from 'src/pages/Tienda.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
 import Clientes from 'src/pages/Clientes.vue'
@@ -72,6 +73,11 @@ export default new Router({
             component: Tienda
           },
           {
+            path: 'prueba',
+            name: 'Prueba',
+            component: Prueba
+          },
+          {
             path: 'maps',
             name: 'Maps',
             component: Maps
@@ -90,6 +96,11 @@ export default new Router({
             path: 'carrito',
             name: 'carrito',
             component: MiPedido  
+          },
+          {
+            path: 'carritoCompra',
+            name: 'carritoCompra',
+            component: CarritoCompra  
           }
         ]
       },

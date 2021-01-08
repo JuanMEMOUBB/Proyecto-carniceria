@@ -40,7 +40,7 @@
         <p>Sobre Nosotros</p>
       </sidebar-link>
 
-      <sidebar-link to="/admin/icons">
+      <sidebar-link to="/admin/prueba">
         <i class="nc-icon nc-bell-55"></i>
         <p>Contáctanos</p>
       </sidebar-link>
