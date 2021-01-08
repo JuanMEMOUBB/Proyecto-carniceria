@@ -11,7 +11,7 @@
               <h4 class="card-title">Tabla Clientes con Hover</h4>
               <p class="card-category">Los clientes hasta el momento</p>
             </template>
-            <l-table 
+            <l-table v-if="cliente.length"
               class="table-hover table-striped"
               :columns="table1.columns"
               :data="table1.data"
@@ -63,44 +63,24 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import LTable from "src/components/Table.vue";
 import Card from "src/components/Cards/Card.vue";
-const tableColumns = ["Id", "Nombre", "Direccion", "Pais", "Ciudad"];
-const tableData = [
-  {
-    id: 1,
-    nombre: "Dakota Rice",
-    direccion: "Alameda 579",
-    pais: "Chile",
-    ciudad: "Santiago"
-  },
-  {
-    id: 2,
-    nombre: "Minerva Hooper",
-    direccion: "Las Lilas 123",
-    pais: "Chile",
-    ciudad: "Talca"
-  },
-  {
-    id: 3,
-    nombre: "Sage Rodriguez",
-    direccion: "Arturo Prat 58",
-    pais: "Chile",
-    ciudad: "Valparaíso"
-  },
-  {
-    id: 4,
-    nombre: "Philip Chaney",
-    direccion: "Carrera 1892",
-    pais: "Chile",
-    ciudad: "Rancagua"
-  },
-  {
-    id: 5,
-    nombre: "Doris Greene",
-    direccion: "Lautaro 445",
-    pais: "Chile",
-    ciudad: "San Carlos"
+const tableColumns = ["Id", "Nombre", "Direccion", "Email", "Ciudad","6","7","8"];
+
+import gql from "graphql-tag";
+const GET_CLIENTES = gql`
+  query getClientes {
+    cliente {
+    id
+    email
+    nombre
+    apellido_paterno
+    apellido_materno
+    direccion
+    telefono_celular
+    telefono_fijo
   }
-];
+  }
+`;
+
 export default {
   components: {
     LTable,
@@ -108,16 +88,34 @@ export default {
   },
   data() {
     return {
+      
+      cliente: [],
       table1: {
         columns: [...tableColumns],
-        data: [...tableData]
+        data: []
       },
       table2: {
         columns: [...tableColumns],
-        data: [...tableData]
+        data: []
       }
+      
     };
   },
+
+  watch: {
+    cliente(value){
+      this.table1.data = value;
+      console.log(value);
+    }
+
+  },
+
+  apollo: {
+    cliente: {
+      query: GET_CLIENTES
+    }
+  },
+  
   methods: {
     download() {
       const doc = new jsPDF('portrait', 'pt', 'a4');
