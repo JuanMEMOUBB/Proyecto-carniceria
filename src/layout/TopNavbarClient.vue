@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">25 Carnicería Benjamín</a>
+      <a class="navbar-brand" href="#">Carnicería Benjamín</a>
       <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
@@ -51,12 +51,12 @@
         -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <sidebar-link class="nav-link" to="/admin/carritoCompra">
+            <a class="nav-link" href="#">
               Perfil
-            </sidebar-link>
+            </a>
           </li>
           <li class="nav-item">
-            <sidebar-link class="nav-link" to="/admin/carrito">
+            <sidebar-link class="nav-link" to="/cliente/carrito">
             <i class="nc-icon nc-cart-simple"></i>
             <a> ${{ cartTotalPrice }}</a>
             </sidebar-link>
@@ -73,8 +73,7 @@
           </base-dropdown>
           -->
           <li class="nav-item">
-            <sidebar-link class="nav-link" to="/">
-              Log out
+            <sidebar-link class="nav-link" to="/">Log out
             </sidebar-link>
           </li>
         </ul>

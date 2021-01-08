@@ -2,45 +2,24 @@
   <div class="wrapper">
     <side-bar>
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/admin/home">
+      <sidebar-link to="/cliente/home">
         <i class="nc-icon nc-bullet-list-67"></i>
         <p>Tienda</p>
       </sidebar-link>
-      <sidebar-link to="/admin/user">
+      <sidebar-link to="/cliente/user">
         <i class="nc-icon nc-circle-09"></i>
         <p>Perfil usuario</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/clientes">
-        <i class="nc-icon nc-notes"></i>
-        <p>Clientes</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/typography">
-        <i class="nc-icon nc-paper-2"></i>
-        <p>Productos</p>
-      </sidebar-link>
-      
-      <sidebar-link to="/admin/upgrade">
+      </sidebar-link>      
+      <sidebar-link to="/cliente/upgrade">
         <i class="nc-icon nc-cart-simple"></i>
         <p>Pedidos</p>
-      </sidebar-link>
-      
-      <sidebar-link to="/admin/maps">
-        <i class="nc-icon nc-pin-3"></i>
-        <p>Maps</p>
-      </sidebar-link>
-
-      <sidebar-link to="/admin/icons">
-        <i class="nc-icon nc-paper-2"></i>
-        <p>Cuentas</p>
-      </sidebar-link>
-
-      
-      <sidebar-link to="/admin/tienda">
+      </sidebar-link>      
+      <sidebar-link to="/cliente/tienda">
         <i class="nc-icon nc-bell-55"></i>
         <p>Sobre Nosotros</p>
       </sidebar-link>
 
-      <sidebar-link to="/admin/prueba">
+      <sidebar-link to="/cliente/icons">
         <i class="nc-icon nc-bell-55"></i>
         <p>Contáctanos</p>
       </sidebar-link>
@@ -59,7 +38,7 @@
 
     </side-bar>
     <div class="main-panel">
-      <top-navbar></top-navbar>
+      <top-navbar-client></top-navbar-client>
 
       <dashboard-content @click="toggleSidebar">
 
@@ -73,16 +52,16 @@
 
 </style>
 <script>
-  import TopNavbar from './TopNavbar.vue'
   import ContentFooter from './ContentFooter.vue'
   import DashboardContent from './Content.vue'
   import MobileMenu from './MobileMenu.vue'
+  import TopNavbarClient from './TopNavbarClient.vue'
   export default {
     components: {
-      TopNavbar,
       ContentFooter,
       DashboardContent,
-      MobileMenu
+      MobileMenu,
+      TopNavbarClient,
     },
     methods: {
       toggleSidebar () {

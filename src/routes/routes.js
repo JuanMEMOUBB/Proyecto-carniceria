@@ -1,4 +1,4 @@
-import DashboardLayout from '../layout/DashboardLayout.vue'
+/*import DashboardLayout from '../layout/DashboardLayout.vue'
 // GeneralViews
 import NotFound from '../pages/NotFoundPage.vue'
 
@@ -62,7 +62,7 @@ const routes = [
       {
         path: 'upgrade',
         name: 'Upgrade to PRO',
-        component: CarritoCompra
+        component: Home
       }
     ]
   },

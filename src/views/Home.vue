@@ -1,21 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo">
-    <carrito-compra/>
+    <!--<carrito-compra/>-->
+    <carrusel/>
     <producto-list/>
+    
   </div>
 </template>
 
 <script>
-import CarritoCompra from '../components/CarritoCompra.vue'
+//import CarritoCompra from '../components/CarritoCompra.vue'
 import ProductoList from '../components/ProductoList.vue'
+import Carrusel from '../components/Carrusel.vue'
 
 export default {
   name: 'home',
   components: {
-    ProductoList,
-    CarritoCompra
+    Carrusel,
+    ProductoList
+    
+    //CarritoCompra
     
   }
 }
 </script>
+
+
