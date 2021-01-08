@@ -12,7 +12,7 @@ import DashboardLayout from 'src/layout/DashboardLayout.vue'
 import DashboardLayoutClient from 'src/layout/DashboardLayoutClient.vue'
 // GeneralViews
 import NotFound from 'src/pages/NotFoundPage.vue'
-import Main from './views/Main.vue'
+import GuestView from './layout/GuestView.vue'
 
 // Admin pages
 import Tienda from 'src/pages/Tienda.vue'
@@ -36,8 +36,26 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'main',
-      component: Main
+      name: 'guest',
+      component: GuestView,
+      redirect: '/home',
+        children: [
+          {
+            path: 'home',
+            name: 'Home',
+            component: Home
+          },
+          {
+            path: 'tienda',
+            name: 'Tienda',
+            component: Notifications
+          },
+          {
+            path: 'icons',
+            name: 'Icons',
+            component: Icons
+          },
+        ]
     },
     /*{
       path: '/',
