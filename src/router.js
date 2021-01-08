@@ -24,6 +24,7 @@ import ProductosTable from 'src/pages/ProductosTable.vue'
 import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
+import Pedidos from './views/Pedidos.vue'
 
 //Client pages
 import  PedidoCliente from 'src/pages/PedidoCliente.vue'
@@ -76,7 +77,7 @@ export default new Router({
     {   path: '/cliente',
         name: 'clienteView',
         component: DashboardLayoutClient,
-        redirect: '/cliente/tienda',
+        redirect: '/cliente/home',
         children: [
           {
             path: 'home',
@@ -114,7 +115,7 @@ export default new Router({
         path: '/admin',
         name: 'adminView',
         component: DashboardLayout,
-        redirect: '/admin/tienda',
+        redirect: '/admin/home',
         children: [
           {
             path: 'home',
@@ -164,7 +165,7 @@ export default new Router({
           {
             path: 'upgrade',
             name: 'Upgrade to PRO',
-            component: Home
+            component: Pedidos
           },
           {
             path: 'carrito',
