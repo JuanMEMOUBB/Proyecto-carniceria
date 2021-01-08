@@ -7,11 +7,11 @@
       <label for="1">Por Nombre </label>
         <input type="radio" id="2" value = 2 name="Categoria" v-model="value">
         <label for="2">Por Ciudad</label>
-      <table class="table table-striped">
+      <table class="table table-striped" style="width:100%">
         
         <thead>
           <tr>
-            <th v-for="column in columns" v-bind:key="column" >
+            <th style="width:17%" v-for="column in columns" v-bind:key="column" >
               <a href="#" 
                 v-on:click= "sortBy(column)"
                 v-bind:class="{active: sortKey == column}"
