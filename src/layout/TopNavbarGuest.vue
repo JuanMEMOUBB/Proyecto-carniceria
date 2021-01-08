@@ -18,7 +18,7 @@
         <!--
         <ul class="nav navbar-nav mr-auto">
           <li class="nav-item">
-            <!--
+            
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="nc-icon nc-palette"></i>
             </a>
@@ -51,12 +51,7 @@
         -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              Perfil
-            </a>
-          </li>
-          <li class="nav-item">
-            <sidebar-link class="nav-link" to="/admin/carrito">
+            <sidebar-link class="nav-link" to="/login">
             <i class="nc-icon nc-cart-simple"></i>
             </sidebar-link>
           </li>
@@ -72,8 +67,8 @@
           </base-dropdown>
           -->
           <li class="nav-item">
-            <sidebar-link class="nav-link" to="/">
-              Log out
+            <sidebar-link class="nav-link" to="/login">
+              Log in
             </sidebar-link>
           </li>
         </ul>
