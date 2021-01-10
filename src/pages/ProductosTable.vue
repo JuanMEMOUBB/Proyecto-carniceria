@@ -1,6 +1,10 @@
 <template>
   <div class="container">
     <div id="vue-table" style="overflow-x:auto;">
+
+      <div>
+       <b-button @click="agregar($event.target)">Agregar Producto</b-button> 
+      </div>
       
       <input type="text" v-model="search" placeholder="Busqueda" class="form-control" />
       <input type="radio" id="1" value = 1 name="Categoria" v-model="value">
@@ -40,6 +44,22 @@
           Nombre: <input type="text" v-model="infoModal.nombre"> <br>
             Precio: $<input type="text" v-model="infoModal.precio"> <br>
             Descripción: <input type="text" v-model="infoModal.descripcion"> <br>
+            <form @submit.prevent="submit">
+          <input type="radio" id="1" value = 1 name="Categoria" v-model="infoModal.id_categoria">
+        <label for="1">Cerdo</label>
+
+        <input type="radio" id="2" value = 2 name="Categoria" v-model="infoModal.id_categoria">
+        <label for="2">Vacuno</label>
+
+        <input type="radio" id="3" value = 3 name="Categoria" v-model="infoModal.id_categoria">
+        <label for="3">Pollo</label>
+
+        <input type="radio" id="4" value = 4 name="Categoria" v-model="infoModal.id_categoria">
+        <label for="4">Cordero</label>
+
+        <input type="radio" id="5" value = 5 name="Categoria" v-model="infoModal.id_categoria">
+        <label for="5">Pavo</label>
+        </form>
             <b-button size="sm" @click="editarInfo()" class="mr-1">Confirmar</b-button>
           </fieldset>
     </b-modal>  
@@ -65,6 +85,13 @@ const GET_PRODUCTOS = gql`
 const EDIT_PRODUCTO = gql`
 mutation MyMutation($_eq: Int!, $nombre: String!, $precio: Int!, $descripcion: String!, $id_categoria: Int!) {
   update_producto(where: {id: {_eq: $_eq}}, _set: {nombre: $nombre, precio: $precio, descripcion: $descripcion, id_categoria: $id_categoria}) {
+    affected_rows
+  }
+}
+`;
+const INSERT_PRODUCTO = gql`
+mutation InsertProducto($nombre: String!, $precio: Int!, $id_categoria: Int!, $descripcion: String!) {
+  insert_producto(objects: {nombre: $nombre, precio: $precio, id_categoria: $id_categoria, descripcion: $descripcion}) {
     affected_rows
   }
 }
@@ -147,27 +174,50 @@ export default {
         this.infoModal.precio = ''
         this.infoModal.descripcion = ''
         this.infoModal.id_categoria = ''
+        this.$apollo.queries.producto.refetch()
       },
       editarInfo(){
+        if(this.infoModal.id_producto == ''){
           this.$apollo.mutate({
-        mutation: EDIT_PRODUCTO,
-        variables: {
-          "_eq" : this.infoModal.id_producto,
-          "nombre" : this.infoModal.nombre,
-          "precio" : this.infoModal.precio,
-          "descripcion": this.infoModal.descripcion,
-          "id_categoria": this.infoModal.id_categoria
+            mutation: INSERT_PRODUCTO,
+            variables:{
+              "nombre" : this.infoModal.nombre,
+            "precio" : this.infoModal.precio,
+            "descripcion": this.infoModal.descripcion,
+            "id_categoria": this.infoModal.id_categoria
+            },
+            refetchQueries: GET_PRODUCTOS
+          })
+          this.notifyVue('top','center');
 
+        } else {
+            this.$apollo.mutate({
+          mutation: EDIT_PRODUCTO,
+          variables: {
+            "_eq" : this.infoModal.id_producto,
+            "nombre" : this.infoModal.nombre,
+            "precio" : this.infoModal.precio,
+            "descripcion": this.infoModal.descripcion,
+            "id_categoria": this.infoModal.id_categoria
+
+          },
+          refetchQueries: GET_PRODUCTOS
+        })
+          this.notifyVue('top','center');
         }
-      })
-      this.notifyVue('top','center');
+      },
+
+      agregar(button){
+        this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+
+
       },
 
       notifyVue (verticalAlign, horizontalAlign) {
         const color = Math.floor((Math.random() * 4) + 1)
         this.$notifications.notify(
           {
-            message: `<span>Producto <b>Editado.</span>`,
+            message: `<span>Producto <b>Actualizado.</span>`,
             icon: 'nc-icon nc-app',
             horizontalAlign: horizontalAlign,
             verticalAlign: verticalAlign,
