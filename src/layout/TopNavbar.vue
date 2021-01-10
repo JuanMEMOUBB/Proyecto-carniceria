@@ -98,7 +98,7 @@
                 <div class="dropdown-header">{{ $auth.user.name }}</div>
                 
                 <a id="qsLogoutBtn" href="#" class="dropdown-item" @click.prevent="logout">
-                  <font-awesome-icon class="mr-3" icon="power-off" />Log out
+                  <b-icon class="mr-3" icon="power-off" />Log out
                 </a>
               </div>
             </li>
