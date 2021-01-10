@@ -45,21 +45,11 @@
         <p>Contáctanos</p>
       </sidebar-link>
 
-      
 
-      <!--
-      <template slot="bottom-links">
-        <sidebar-link class="active"
-                      to="/admin/upgrade">
-          <i class="nc-icon nc-alien-33"></i>
-          <p>Upgrade to PRO</p>
-        </sidebar-link>
-      </template>
-      -->
 
     </side-bar>
     <div class="main-panel">
-      <top-navbar></top-navbar>
+      <top-navbar-guest></top-navbar-guest>
 
       <dashboard-content @click="toggleSidebar">
 
@@ -73,13 +63,13 @@
 
 </style>
 <script>
-  import TopNavbar from './TopNavbar.vue'
+  import TopNavbarGuest from './TopNavbarGuest.vue'
   import ContentFooter from './ContentFooter.vue'
   import DashboardContent from './Content.vue'
   import MobileMenu from './MobileMenu.vue'
   export default {
     components: {
-      TopNavbar,
+      TopNavbarGuest,
       ContentFooter,
       DashboardContent,
       MobileMenu

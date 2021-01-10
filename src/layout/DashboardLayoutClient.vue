@@ -38,7 +38,7 @@
 
     </side-bar>
     <div class="main-panel">
-      <top-navbar-client></top-navbar-client>
+      <top-navbar-guest></top-navbar-guest>
 
       <dashboard-content @click="toggleSidebar">
 
@@ -55,13 +55,13 @@
   import ContentFooter from './ContentFooter.vue'
   import DashboardContent from './Content.vue'
   import MobileMenu from './MobileMenu.vue'
-  import TopNavbarClient from './TopNavbarClient.vue'
+  import TopNavbarGuest from './TopNavbarGuest.vue'
   export default {
     components: {
       ContentFooter,
       DashboardContent,
       MobileMenu,
-      TopNavbarClient,
+      TopNavbarGuest,
     },
     methods: {
       toggleSidebar () {
