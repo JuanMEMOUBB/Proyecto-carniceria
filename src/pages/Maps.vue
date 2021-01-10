@@ -103,6 +103,7 @@
               <hr>
               <div class="stats">
                 <i class="fa fa-clock-o"></i> Los últimos 7 días
+                <b-button @click="update">Actualizar</b-button>
               </div>
             </template>
           </chart-card>
@@ -176,6 +177,20 @@
   import ChartCard from 'src/components/Cards/ChartCard.vue'
   import StatsCard from 'src/components/Cards/StatsCard.vue'
   import LTable from 'src/components/Table.vue'
+  import gql from "graphql-tag"
+
+  export const GET_PEDIDOS = gql`
+  query getPedidos {
+    pedido {
+    id
+    estado_pedido
+    direccion
+    peso
+    id_cliente
+    created_at
+  }
+  }
+`;
 
   export default {
     components: {
@@ -187,10 +202,11 @@
       return {
         editTooltip: 'Edit Task',
         deleteTooltip: 'Remove',
+        pedido: [],
         pieChart: {
           data: {
-            labels: ['40%', '20%', '40%'],
-            series: [40, 20, 40]
+            labels: ['60%', '20%', '40%'],
+            series: [60, 20, 40]
           }
         },
         lineChart: {
@@ -267,6 +283,30 @@
             {title: 'Unfollow 5 enemies from twitter', checked: false}
           ]
         }
+      }
+    },
+    apollo: {
+      pedido: {
+       query: GET_PEDIDOS
+      }
+
+    },
+    
+    methods:{
+      updateData(){
+        this.pieChart.data.series[0] = 0;
+
+        for(let i= 0;i<this.pedido.length;i++){
+          if(this.pedido.estado_pedido == "Completado"){
+          this.pieChart.data.series[0] += 1 ;
+          }
+        }
+
+      }
+    },
+    computed:{
+      update(){
+        return this.updateData;
       }
     }
   }

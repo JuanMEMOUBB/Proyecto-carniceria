@@ -9,15 +9,15 @@
 
           <b-row class="my-1">
             <b-col sm="2">
-              <label for="input-default">Empresa de Despacho: <b>{{nombre_empresa_despacho}}</b></label>
+              <label for="input-default">Empresa de Despacho: </label>
             </b-col>
             <b-col sm="10">
-              <b-form-input id="input-default" placeholder="Cambiar" v-bind="nombre_empresa_despacho"></b-form-input>
+              <b-form-input id="input-default" placeholder="Cambiar" v-model="nombre_empresa_despacho"></b-form-input>
             </b-col>
           </b-row>
           <b-row class="my-2">
             <b-col sm="2">
-              <label for="input-default">Numero de Seguimiento: <b>{{numero_seguimiento}}</b></label>
+              <label for="input-default">Numero de Seguimiento: </label>
             </b-col>
             <b-col sm="10">
               <b-form-input id="input-default" placeholder="Cambiar" v-model="numero_seguimiento"></b-form-input>
