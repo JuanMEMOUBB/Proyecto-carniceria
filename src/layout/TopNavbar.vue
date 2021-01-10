@@ -72,11 +72,36 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown>
           -->
-          <li class="nav-item">
-            <sidebar-link class="nav-link" to="/">
-              Log out
-            </sidebar-link>
-          </li>
+          <li v-if="!$auth.isAuthenticated && !$auth.loading" class="nav-item">
+              <button
+                id="qsLoginBtn"
+                class="btn btn-primary btn-margin"
+                @click.prevent="login"
+              >Login</button>
+            </li>
+
+            <li class="nav-item dropdown" v-if="$auth.isAuthenticated">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="profileDropDown"
+                data-toggle="dropdown"
+              >
+                <img
+                  :src="$auth.user.picture"
+                  alt="User's profile picture"
+                  class="nav-user-profile rounded-circle"
+                  width="50"
+                />
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header">{{ $auth.user.name }}</div>
+                
+                <a id="qsLogoutBtn" href="#" class="dropdown-item" @click.prevent="logout">
+                  <font-awesome-icon class="mr-3" icon="power-off" />Log out
+                </a>
+              </div>
+            </li>
         </ul>
       </div>
     </div>
