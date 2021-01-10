@@ -29,6 +29,7 @@
         <a class="nav-link active" href="#prod" @click="categoria='%'">Todas</a>
         <a class="nav-link " href="#prod" @click="categoria='cerdo%'">Cerdo</a>
         <a class="nav-link " href="#prod" @click="categoria='cordero%'">Cordero</a>
+        <a class="nav-link " href="#prod" @click="categoria='pavo%'">Pavo</a>
         <a class="nav-link " href="#prod" @click="categoria='pollo%'">Pollo</a>
         <a class="nav-link " href="#prod" @click="categoria='vacuno%'">Vacuno</a>
       </b-navbar-nav>
@@ -77,6 +78,8 @@ const GET_PRODUCTOS = gql`
     id
     nombre
     precio
+    id_categoria
+    imagen
   }
 }
 `;
