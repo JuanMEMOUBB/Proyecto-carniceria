@@ -14,7 +14,7 @@
     <div class="card">
       <img
         class="card-img-top"
-        src="https://picsum.photos/200/150/?random"
+        :src="producto.imagen"
       />
       <div class="card-block">
         <figure class="profile" v-if="producto.id_categoria == 1">
@@ -81,8 +81,7 @@
             
             <img
         class="card-img-top"
-        src="https://picsum.photos/200/150/?random
-"
+        :src="producto.imagen"
       />
       <h3>{{ producto.nombre }}</h3>
             <p>Al Vacio: {{ producto.precio }}</p>
@@ -175,8 +174,9 @@ h5 {
 
 .card-img-top {
   display: block;
-  width: 100%;
+  width: 300px;
   height: auto;
+  
 }
 
 .card-title {
