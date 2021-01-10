@@ -76,9 +76,9 @@
             </template>
             <template slot="footer">
               <div class="legend">
-                <i class="fa fa-circle text-info"></i> Pedidos realizados
-                <i class="fa fa-circle text-danger"></i> Pedidos cancelados
-                <i class="fa fa-circle text-warning"></i> Pedidos pendientes
+                <i class="fa fa-circle text-info"></i> Pedidos completos
+                <i class="fa fa-circle text-danger"></i> Pedidos en proceso
+                <i class="fa fa-circle text-warning"></i> Pedidos pendientes por confirmar
               </div>
               <hr>
               <div class="stats">
@@ -96,9 +96,9 @@
             </template>
             <template slot="footer">
               <div class="legend">
-                <i class="fa fa-circle text-info"></i> Pedidos realizados
+                <i class="fa fa-circle text-info"></i> Pedidos completos
                 <i class="fa fa-circle text-danger"></i> Pedidos cancelados
-                <i class="fa fa-circle text-warning"></i> Pedidos pendientes
+                <i class="fa fa-circle text-warning"></i> Pedidos pendientes por confirmar
               </div>
               <hr>
               <div class="stats">
@@ -188,6 +188,8 @@
     peso
     id_cliente
     created_at
+    updated_at
+    precio
   }
   }
 `;
@@ -206,7 +208,7 @@
         pieChart: {
           data: {
             labels: ['60%', '20%', '40%'],
-            series: [60, 20, 40]
+            series: [0,0,0]
           }
         },
         lineChart: {
@@ -248,7 +250,7 @@
           data: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             series: [
-              [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
+              [0,0,0,0,0,0,0,0,0,0,0,0],
               [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
             ]
           },
@@ -291,18 +293,60 @@
       }
 
     },
+
+    created(){
+
+      this.pieChartDatos();
+      this.barChartDatos();
+
+    },
     
     methods:{
-      updateData(){
-        this.pieChart.data.series[0] = 0;
-
+      pieChartDatos(){
         for(let i= 0;i<this.pedido.length;i++){
-          if(this.pedido.estado_pedido == "Completado"){
-          this.pieChart.data.series[0] += 1 ;
+          if(this.pedido[i].estado_pedido == "Completado"){
+          this.pieChart.data.series[0]++;
+          }
+          if(this.pedido[i].estado_pedido == "Cancelado"){
+          this.pieChart.data.series[1]++;
+          }
+          if(this.pedido[i].estado_pedido == "Esperando confirmación de stock"){
+          this.pieChart.data.series[2]++;
           }
         }
+        //calculo de porcentajes para el pieChart
+        let porcentajeTotal = this.pieChart.data.series[0] + this.pieChart.data.series[1] + this.pieChart.data.series[2];
+        this.pieChart.data.labels[0] = ((this.pieChart.data.series[0] *100)/porcentajeTotal).toFixed(1) + '%';
+        this.pieChart.data.labels[1] = ((this.pieChart.data.series[1] *100)/porcentajeTotal).toFixed(1) + '%';
+        this.pieChart.data.labels[2] = ((this.pieChart.data.series[2] *100)/porcentajeTotal).toFixed(1) + '%';
+      },
 
-      }
+      lineChartDatos(){
+
+        for(let i= 0;i<this.pedido.length;i++){
+          if(this.pedido[i].estado_pedido == "Completado"){
+          this.pieChart.data.series[0]++;
+          }
+          if(this.pedido[i].estado_pedido == "Cancelado"){
+          this.pieChart.data.series[1]++;
+          }
+          if(this.pedido[i].estado_pedido == "Esperando confirmación de stock"){
+          this.pieChart.data.series[2]++;
+          }
+        }
+      },
+
+      barChartDatos(){
+        for(let j = 0; j< 12; j++){
+          for(let i = 0; i<this.pedido.length;i++){
+            let mes = this.pedido[i].updated_at.split('-',2).slice('1');
+            if(this.pedido[i].estado_pedido == "Completado" &&  mes[0] == j+1){
+              console.log(this.pedido[i].updated_at.split('-',2).slice('1'))
+              this.barChart.data.series[0][j] +=  this.pedido[i].precio; 
+            }          
+          }
+        }
+      },
     },
     computed:{
       update(){
