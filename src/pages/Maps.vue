@@ -544,15 +544,17 @@ query getProducto {
        
           this.barChartProductos.data.series.splice(this.producto.length);
         
-        for(let j = 0; j<this.producto.length;j++){
-          for(let i = 0; i< this.pedido_y_detalle.length;i++){
-            let mes = this.pedido_y_detalle[i].updated_at.split('-',2).slice('1');
-            console.log(mes)
+        for(let j = 0; j<12;j++){
+          for(let p = 0 ; p< producto.length; p++){
+            for(let i = 0; i< this.pedido_y_detalle.length;i++){
+              let mes = this.pedido_y_detalle[i].updated_at.split('-',2).slice('1');
+              console.log(mes)
 
-            if(this.pedido_y_detalle[i].estado_pedido == "Completado" && this.pedido_y_detalle[i].id_producto === this.producto[j].id){
+              if(this.pedido_y_detalle[i].estado_pedido == "Completado" && this.pedido_y_detalle[i].id_producto === this.producto[p].id){
 
-              this.barChartProductos.data.series[0][j] += this.pedido_y_detalle[i].peso;
+                this.barChartProductos.data.series[p][j] += this.pedido_y_detalle[i].peso;
 
+              }
             }
           }
         }

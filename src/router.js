@@ -97,6 +97,12 @@ export default new Router({
             component: PedidoCliente
           },
           {
+          path: '/detallePedido/:id',
+            name: 'DetallePedido',
+            component: DetallePedido,
+            props: true
+          },          
+          {
             path: 'tienda',
             name: 'Tienda',
             component: Notifications

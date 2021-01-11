@@ -1,11 +1,11 @@
 <template>
   <div class="list-of-pedidos">
-    <pedido-item v-for="pedido in pedido" :key="pedido.id" :pedido="pedido" class="pedido-item" v-on:ver-pedido="$emit('ver-pedido',pedido.id)"></pedido-item>
+    <pedido-item-client v-for="pedido in pedido" :key="pedido.id" :pedido="pedido" class="pedido-item" v-on:ver-pedido="$emit('ver-pedido',pedido.id)"></pedido-item-client>
   </div>
 </template>
 
 <script>
-import PedidoItem from "src/components/PedidoItem.vue";
+import PedidoItemClient from "src/components/PedidoItemClient.vue";
 import gql from "graphql-tag";
 export const GET_PEDIDOS = gql`
 query getPedidos($id_user: String!) {
@@ -20,7 +20,7 @@ query getPedidos($id_user: String!) {
 `;
 export default {
   name: "PedidoCliente",
-  components: { PedidoItem },
+  components: { PedidoItemClient },
   data() {
     return {
       pedido: [],
@@ -32,7 +32,7 @@ export default {
       if (this.$auth && this.$auth.isAuthenticated && !this.$auth.loading){
         id=this.$auth.user['https://hasura.io/jwt/claims']['x-hasura-user-id']
       }else{
-        id=1
+        id= null
       }      
       window.console.log(id)
       return id;

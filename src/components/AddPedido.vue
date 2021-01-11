@@ -16,8 +16,16 @@ import gql from "graphql-tag";
 import { InMemoryCache } from "apollo-cache-inmemory";
 //import { GET_PEDIDOS } from './PedidosList.vue';
 
+const GET_CLIENTE = gql`
+query getIdCliente($id_user: String!) {
+  cliente(where: {user: {id: {_eq: $id_user}}}) {
+    id
+  }
+}
+`;
+
 const ADD_PEDIDO = gql`
-  mutation addPedido($direccion: String!, $peso: Int!, $precio: Int!, $id_cliente: Int = 1) {
+  mutation addPedido($direccion: String!, $peso: Int!, $precio: Int!, $id_cliente: Int!) {
   insert_pedido(objects: {
     direccion: $direccion,  
     peso: $peso, 
@@ -56,7 +64,8 @@ export default {
       direccion: "",
       peso: "",
       precio: "",
-      id_pedido: ""
+      id_pedido: "",
+      cliente: []
     };
   },
 
@@ -75,6 +84,18 @@ export default {
         // if(this.id_pedido !== undefined ){
           return this.id_pedido
          //}
+        },
+        idUser: function() {
+          let id;
+          if (this.$auth && this.$auth.isAuthenticated && !this.$auth.loading) {
+            id = this.$auth.user["https://hasura.io/jwt/claims"][
+              "x-hasura-user-id"
+            ];
+          } else {
+            id = null;
+          }
+          window.console.log(id);
+          return id;
         }
      },
 
@@ -85,11 +106,32 @@ export default {
          this.insertarDetalle(this.id_pedido);
          this.$store.dispatch('clearCart');
          }
+       },
+       cliente: function(val){
+         if (val){
+         this.cliente = val
+         console.log(this.cliente = val)
+      } 
+      else if(this.$auth && this.$auth.isAuthenticated && !this.$auth.loading){
+        this.clienteUpdate.email = this.$auth.user.email
+      }
+
        }
+
 
      },
      
-  apollo: {},
+  apollo: {
+    cliente:{
+      query : GET_CLIENTE,
+      variables(){
+        return{
+          id_user: this.idUser
+        }
+      }
+    }
+    
+  },
   methods: {
     submit() {
       
@@ -101,7 +143,9 @@ export default {
         variables: {
           direccion,
           peso,
-          precio
+          precio,
+          id_cliente : this.cliente[0].id
+
         },
         refetchQueries: ["getPedidos"],
 
