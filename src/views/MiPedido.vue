@@ -79,7 +79,7 @@
                 <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">
                     <div class="row">
                         
-                        <b-button to="/admin/home">Seguir comprando</b-button>
+                        <b-button onClick="history.go(-1);">Seguir comprando</b-button>
                     </div>
                 </div>
                 <div class="pull-right" style="margin: 10px">

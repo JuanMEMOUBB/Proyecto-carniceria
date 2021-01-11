@@ -1,12 +1,23 @@
 <template>
 <div>
- <div :key="pedido_y_detalle.id_producto">
-    <h3> {{ pedido_y_detalle.nombre }}</h3>
-    <p> Al Vacio: {{ pedido_y_detalle.al_vacio }}</p>
-    <p> peso: {{ pedido_y_detalle.peso }}kg </p>
+ <table class="table table-striped" style="width:100%">
+     <thead>
+         <tr>
+            <th style="width:33%">Producto</th>
+            <th style="width:33%">Al vacio</th>
+            <th style="width:33%">Peso</th>
+         </tr>
+     </thead>
 
-
- </div>
+     <tbody>
+        <tr :key="pedido_y_detalle.id_producto">
+            <td>{{ pedido_y_detalle.nombre }}</td>
+            <td v-if="pedido_y_detalle.al_vacio">Verdadero</td>
+            <td v-else>Falso</td>
+            <td>{{ pedido_y_detalle.peso }}kg </td>
+        </tr>
+     </tbody>
+ </table>
 
 </div>
     

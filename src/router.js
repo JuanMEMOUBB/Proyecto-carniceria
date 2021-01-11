@@ -178,16 +178,16 @@ export default new Router({
             path: 'carritoCompra',
             name: 'carritoCompra',
             component: CarritoCompra  
-          }
+          },
+          {
+            path: '/detallePedido/:id',
+            name: 'DetallePedido',
+            component: DetallePedido,
+            props: true
+          },
         ]
       },
       { path: '*', component: NotFound },
-    {
-      path: '/detallePedido/:id',
-      name: 'DetallePedido',
-      component: DetallePedido,
-      props: true
-    },
     {
       path: '/miPedido',
       name: 'MiPedido',
