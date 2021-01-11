@@ -7,6 +7,7 @@ import AddCliente from './components/AddCliente.vue'
 import MiPedido from './views/MiPedido.vue'
 import CarritoCompra from './components/CarritoCompra.vue'
 import Login from './components/Login.vue'
+import { authGuard } from "./auth";
 
 import DashboardLayout from 'src/layout/DashboardLayout.vue'
 import DashboardLayoutClient from 'src/layout/DashboardLayoutClient.vue'
@@ -64,7 +65,7 @@ export default new Router({
       name: 'home',
       component: DashboardLayout
     },*/
-    {
+    /*{
       path: "/login",
       name: "login",
       component: Login
@@ -78,6 +79,7 @@ export default new Router({
         name: 'clienteView',
         component: DashboardLayoutClient,
         redirect: '/cliente/home',
+        beforeEnter: authGuard,
         children: [
           {
             path: 'home',

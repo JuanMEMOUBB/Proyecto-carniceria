@@ -7,7 +7,7 @@
       <div class="logo">
         <a href="#" class="simple-text logo__container">
             <div class="logo-img">
-                <img src="img/cerdo.png" alt="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXGKAPbFejTmaXX4ZhYsGuSR04hHL21sz0fA&usqp=CAU" alt="">
             </div>
           {{title}}
         </a>

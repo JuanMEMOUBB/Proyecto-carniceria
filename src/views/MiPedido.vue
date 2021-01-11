@@ -41,13 +41,11 @@
                     <!-- PRODUCT -->
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-2 text-center">
-                                <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120" height="80">
+                                <img class="img-responsive" :src="producto.imagen" alt="prewiew" width="120" height="80">
                         </div>
                         <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
                             <h4 class="product-name"><strong>{{ producto.nombre }}</strong></h4>
-                            <h4>
-                                <small>Descripción producto</small>
-                            </h4>
+                          
                         </div>
                         <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
                             <div class="col-3 col-sm-3 col-md-4 text-md-right" style="padding-top: 5px">
@@ -85,7 +83,7 @@
                     </div>
                 </div>
                 <div class="pull-right" style="margin: 10px">
-                    <a href="" class="btn btn-success pull-right">Solicitar Stock</a>
+                    <add-pedido/>
                     <div class="pull-right" style="margin: 5px">
                         Precio Total: <b>{{ cartTotalPrice }}</b>
                     </div>

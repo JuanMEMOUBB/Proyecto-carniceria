@@ -6,6 +6,9 @@ function resolveSrc(_path) {
 }
 
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/Proyecto-carniceria/'
+    : '/',
   lintOnSave: false,
   configureWebpack: {
     // Set up all the aliases we use in our app.
@@ -22,7 +25,7 @@ module.exports = {
     ]
   },
   pwa: {
-    name: 'Vue Light Bootstrap Dashboard',
+    name: 'Carnicería Benjamín',
     themeColor: '#344675',
     msTileColor: '#344675',
     appleMobileWebAppCapable: 'yes',
@@ -31,5 +34,9 @@ module.exports = {
   css: {
     // Enable CSS source maps.
     sourceMap: process.env.NODE_ENV !== 'production'
-  }
+  },
+  devServer: {
+    port: 3000,
+    https: true,
+  },
 };

@@ -8,8 +8,8 @@
 import PedidoItem from "src/components/PedidoItem.vue";
 import gql from "graphql-tag";
 export const GET_PEDIDOS = gql`
-  query getPedidos($_eq: Int!) {
-  pedido(where: {id_cliente: {_eq: $_eq}}) {
+query getPedidos($id_user: String!) {
+  pedido(where: {cliente: {user: {id: {_eq: $id_user}}}}) {
     estado_pedido
     peso
     precio
@@ -17,7 +17,6 @@ export const GET_PEDIDOS = gql`
     numero_seguimiento
   }
 }
-
 `;
 export default {
   name: "PedidoCliente",
@@ -25,16 +24,27 @@ export default {
   data() {
     return {
       pedido: [],
-      idCliente: 1
     };
+  },
+  computed:{
+    idUser: function(){
+      let id
+      if (this.$auth && this.$auth.isAuthenticated && !this.$auth.loading){
+        id=this.$auth.user['https://hasura.io/jwt/claims']['x-hasura-user-id']
+      }else{
+        id=1
+      }      
+      window.console.log(id)
+      return id;
+    }
   },
   apollo: {
     pedido: {
       query: GET_PEDIDOS,
       variables(){
         return{
-          "_eq": this.idCliente
-        }
+          "id_user": this.idUser
+        };
       }
     }
   }

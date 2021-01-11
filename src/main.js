@@ -2,10 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import {ApolloClient} from 'apollo-client';
+import { Auth0Plugin } from "./auth";
 import {HttpLink} from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import VueApollo from 'vue-apollo';
 import store from './store'
+import { domain, clientId } from "../auth_config.json";
 
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -19,7 +21,17 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
-
+Vue.use(Auth0Plugin, {
+  domain,
+  clientId,
+  onRedirectCallback: appState => {
+    router.push(
+      appState && appState.targetUrl
+        ? appState.targetUrl
+        : window.location.pathname
+    );
+  }
+});
 
 
 
