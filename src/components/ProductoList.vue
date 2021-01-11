@@ -80,6 +80,7 @@ const GET_PRODUCTOS = gql`
     precio
     id_categoria
     imagen
+    descripcion
   }
 }
 `;

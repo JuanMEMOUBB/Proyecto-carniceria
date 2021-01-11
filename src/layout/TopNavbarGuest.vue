@@ -24,6 +24,7 @@
           <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.user['https://hasura.io/jwt/claims']['x-hasura-default-role']=='user'" class="nav-item">
             <sidebar-link class="nav-link" to="/cliente/carrito">
               <i class="nc-icon nc-cart-simple"></i>
+              <a> ${{ cartTotalPrice }}</a>
             </sidebar-link>
           </li>
  
@@ -60,7 +61,10 @@ export default {
     routeName() {
       const { name } = this.$route;
       return this.capitalizeFirstLetter(name);
-    }
+    },
+    cartTotalPrice(){
+            return this.$store.getters.getCartTotalPrice
+        }
   },
   data() {
     return {

@@ -1,14 +1,5 @@
 <template>
-  <!--
-  <div :key="producto.id">
-    <h3>Nombre: {{ producto.nombre }}</h3>
-    <p>${{ producto.precio }}</p>
-    <button @click="updateCantidad('resta')" class="cart_button">-</button>
-    <span class="cart_quantity">{{cantidad}}</span>
-    <button @click="updateCantidad('suma')" class="cart_button">+</button>
-    <button @click="agregarCarrito(cantidad)" class="agregarCarrito">Añadir al carrito</button>
-  </div>
-  -->
+  
 
   <div :key="producto.id">
     <div class="card">
@@ -83,16 +74,33 @@
         class="card-img-top"
         :src="producto.imagen"
       />
-      <h3>{{ producto.nombre }}</h3>
-            <p>Al Vacio: {{ producto.precio }}</p>
-            <p>peso: {{ producto.id_categoria }}kg</p>
+      <h2>{{ producto.nombre }}</h2>
+            <div class="meta" v-if="producto.id_categoria == 1">
+          <a>Cerdo</a>
+        </div>
+        <div class="meta" v-if="producto.id_categoria == 4">
+          <a>Cordero</a>
+        </div>
+        <div class="meta" v-if="producto.id_categoria == 5">
+          <a>Pavo</a>
+        </div>
+        <div class="meta" v-if="producto.id_categoria == 3">
+          <a>Pollo</a>
+        </div>
+        <div class="meta" v-if="producto.id_categoria == 2">
+          <a>Vacuno</a>
+        </div>
+            <h3>Precio: $ {{ producto.precio }}</h3>
+            <p>{{producto.descripcion}}</p>
           </div>
-          <button @click="updateCantidad('resta')" class="cart_button">-</button>
+          <div>
+          <b-button @click="updateCantidad('resta')" class="cart_button" variant="danger">Quitar</b-button>
         <span class="cart_quantity">{{ cantidad }}</span>
-        <button @click="updateCantidad('suma')" class="cart_button">+</button>
-        <button @click="agregarCarrito(cantidad)" class="agregarCarrito">
+        <b-button @click="updateCantidad('suma')" class="cart_button" variant="success">Agregar</b-button>
+        </div>
+        <b-button @click="agregarCarrito(cantidad)" class="agregarCarrito" variant="primary">
           Añadir al carrito
-        </button>
+        </b-button>
         </b-modal>
       </div>
     </div>
@@ -175,7 +183,7 @@ h5 {
 .card-img-top {
   display: block;
   width: 300px;
-  height: auto;
+  height: 300px;
   
 }
 
