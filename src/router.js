@@ -118,17 +118,18 @@ export default new Router({
         name: 'adminView',
         component: DashboardLayout,
         redirect: '/admin/home',
+        beforeEnter: authGuard,
         children: [
           {
             path: 'home',
             name: 'Home',
             component: Home
           },
-          {
+          /*{
             path: 'user',
             name: 'User',
             component: UserProfile
-          },
+          },*/
           {
             path: 'clientes',
             name: 'Clientes',

@@ -11,7 +11,8 @@
       <label for="1">Por Producto </label>
         <input type="radio" id="2" value = 2 name="Categoria" v-model="value">
         <label for="2">Por Categoría</label>
-      <table class="table table-striped" style="width:100%">
+        <div ref="content">
+      <table class="table" style="width:100%" >
         
         <thead>
           <tr>
@@ -37,6 +38,8 @@
           </tr>
         </tbody>
       </table>
+      </div>
+      <button @click="download">Download PDF</button>
 
       <!-- Info modal-->
       <b-modal :id="infoModal.id" title="Editar Producto"  ok-only @hide="resetInfoModal">
@@ -70,6 +73,7 @@
 <script>
 
 import gql from "graphql-tag";
+import jsPDF from "jspdf";
 const GET_PRODUCTOS = gql`
   query getProductos {
     producto {
@@ -136,6 +140,17 @@ export default {
     }
   },
   methods: {
+    download() {
+      const doc = new jsPDF('portrait', 'pt', 'a4');
+      const contentHtml = this.$refs.content.innerHTML;
+      doc.html(contentHtml, {
+        callback: function(doc) {
+          doc.save("archivo.pdf");
+        },
+        x: 10,
+        y: 10
+      });
+    },
     sortBy: function(sortKey) {
       this.reverse = (this.sortKey === sortKey) ? ! this.reverse : false;
       this.sortKey = sortKey;

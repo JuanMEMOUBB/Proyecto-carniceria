@@ -6,10 +6,10 @@
         <i class="nc-icon nc-bullet-list-67"></i>
         <p>Tienda</p>
       </sidebar-link>
-      <sidebar-link to="/admin/user">
+      <!--<sidebar-link to="/admin/user">
         <i class="nc-icon nc-circle-09"></i>
         <p>Perfil usuario</p>
-      </sidebar-link>
+      </sidebar-link>-->
       <sidebar-link to="/admin/clientes">
         <i class="nc-icon nc-notes"></i>
         <p>Clientes</p>
@@ -40,10 +40,10 @@
         <p>Sobre Nosotros</p>
       </sidebar-link>
 
-      <sidebar-link to="/admin/prueba">
+      <!--<sidebar-link to="/admin/prueba">
         <i class="nc-icon nc-bell-55"></i>
         <p>Contáctanos</p>
-      </sidebar-link>
+      </sidebar-link>-->
 
 
 
