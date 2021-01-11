@@ -72,7 +72,7 @@
                       :responsive-options="lineChart.responsiveOptions">
             <template slot="header">
               <h4 class="card-title">Pedidos</h4>
-              <p class="card-category">Pedidos en las últimas 24 horas</p>
+              <p class="card-category">Pedidos en la última semana</p>
             </template>
             <template slot="footer">
               <div class="legend">
@@ -92,18 +92,18 @@
           <chart-card :chart-data="pieChart.data" chart-type="Pie">
             <template slot="header">
               <h4 class="card-title">Pedidos</h4>
-              <p class="card-category">Pedidos en la última semana</p>
+              <p class="card-category">Pedidos del día</p>
             </template>
             <template slot="footer">
               <div class="legend">
-                <i class="fa fa-circle text-info"></i> Pedidos completos
-                <i class="fa fa-circle text-danger"></i> Pedidos cancelados
-                <i class="fa fa-circle text-warning"></i> Pedidos pendientes por confirmar
+                <i class="fa fa-circle text-info"></i> Pedidos completos : {{pieChart.data.series[0]}}
+                <i class="fa fa-circle text-danger"></i> Pedidos cancelados : {{pieChart.data.series[1]}}
+                <i class="fa fa-circle text-warning"></i> Pedidos pendientes por confirmar : {{pieChart.data.series[2]}}
+                Total de pedidos : {{pieChart.data.series[0] + pieChart.data.series[1] + pieChart.data.series[2]}}
               </div>
               <hr>
               <div class="stats">
-                <i class="fa fa-clock-o"></i> Los últimos 7 días
-                <b-button @click="update">Actualizar</b-button>
+                <i class="fa fa-clock-o"></i>
               </div>
             </template>
           </chart-card>
@@ -111,6 +111,27 @@
       </div>
 
       <div class="row">
+        <div class="col-md-10">
+          <chart-card
+            :chart-data="barChartProductos.data"
+            :chart-options="barChartProductos.options"
+            :chart-responsive-options="barChartProductos.responsiveOptions"
+            chart-type="Bar">
+            <template slot="header">
+              <h4 class="card-title">Venta Productos</h4>
+              <p class="card-category"></p>
+            </template>
+            <template slot="footer">
+              <div class="legend">
+                <i class="fa fa-circle text-info"></i> Kilogramos Vendidos
+              </div>
+              <hr>
+              <div class="stats">
+              </div>
+            </template>
+          </chart-card>
+        </div>
+
         <div class="col-md-6">
           <chart-card
             :chart-data="barChart.data"
@@ -128,10 +149,89 @@
               </div>
               <hr>
               <div class="stats">
-                <i class="fa fa-check"></i> Información certificada
+                <b-button @click="addEgresos($event.target)" >Añadir Egresos</b-button>
               </div>
             </template>
           </chart-card>
+          <b-modal  :id="infoModal.id" title="Egresos" ok-only @hide="updateBarData">
+            <b-container>
+              <b-row class="my-1">
+                <b-col sm="2">
+                  <label for="input-number-1">Enero</label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input  id="input-number-1" v-model.number="infoModal.barChart[0]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-2">Febrero</label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-2" v-model.number="infoModal.barChart[1]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-3">Marzo</label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-3" v-model.number="infoModal.barChart[2]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-4">Abril</label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-4" v-model.number="infoModal.barChart[3]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-5">Mayo </label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-5" v-model.number="infoModal.barChart[4]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-6">Junio </label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-6" v-model.number="infoModal.barChart[5]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-7">Julio </label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-7" v-model.number="infoModal.barChart[6]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-8">Agosto </label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-8" v-model.number="infoModal.barChart[7]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-9">Septiembre </label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-9" v-model.number="infoModal.barChart[8]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-10">Octubre </label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-10" v-model.number="infoModal.barChart[9]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-11">Noviembre</label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-11" v-model.number="infoModal.barChart[10]"></b-form-input>
+                </b-col>
+                <b-col sm="2">
+                  <label for="input-default-12">Diciembre</label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-input id="input-default-12" v-model.number="infoModal.barChart[11]"></b-form-input>
+                </b-col>
+              </b-row>
+              <pre>{{ infoModal.content }}</pre>
+            </b-container>
+          </b-modal>
         </div>
         <!--
         <div class="col-md-6">
@@ -193,6 +293,28 @@
   }
   }
 `;
+export const GET_PRODUCTO_VENDIDO = gql`
+query getProductoVendido {
+  pedido_y_detalle {
+    id
+    id_producto
+    peso
+    estado_pedido
+    updated_at
+  }
+}
+`;
+
+export const GET_PRODUCTO = gql`
+query getProducto {
+  producto (order_by: {id: asc}){
+    id
+    nombre
+  }
+}
+`;
+
+
 
   export default {
     components: {
@@ -202,9 +324,16 @@
     },
     data () {
       return {
+        infoModal: {
+          id: 'info-modal',
+          content: '',
+          barChart: [],
+        },
         editTooltip: 'Edit Task',
         deleteTooltip: 'Remove',
         pedido: [],
+        pedido_y_detalle: [],
+        producto: [],
         pieChart: {
           data: {
             labels: ['60%', '20%', '40%'],
@@ -213,11 +342,11 @@
         },
         lineChart: {
           data: {
-            labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
+            labels: ['7:00', '9:00', '11:00', '13:00', '15:00', '16:00', '18:00'],
             series: [
-              [287, 385, 490, 492, 554, 586, 698, 695],
-              [67, 152, 143, 240, 287, 335, 435, 437],
-              [23, 113, 67, 108, 190, 239, 307, 308]
+              [0, 0, 0,0,0,0,0],
+              [0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0]
             ]
           },
           options: {
@@ -254,6 +383,31 @@
               [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
             ]
           },
+          
+          options: {
+            seriesBarDistance: 10,
+            axisX: {
+              showGrid: false
+            },
+            height: '245px'
+          },
+          responsiveOptions: [
+            ['screen and (max-width: 640px)', {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc (value) {
+                  return value[0]
+                }
+              }
+            }]
+          ]
+        },
+        barChartProductos: {
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            series: []
+            },
+          
           options: {
             seriesBarDistance: 10,
             axisX: {
@@ -290,29 +444,55 @@
     apollo: {
       pedido: {
        query: GET_PEDIDOS
-      }
-
+      },
+      pedido_y_detalle: {
+       query: GET_PRODUCTO_VENDIDO
+      },
+      producto:{
+        query: GET_PRODUCTO
+      },
     },
 
     created(){
 
       this.pieChartDatos();
+      this.barChartDatosProductos();
       this.barChartDatos();
+      //this.lineChartDatos();
+      
 
     },
     
     methods:{
       pieChartDatos(){
+       /* let  d = new Date();
+        let diaHoy = d.toString().split(' ',4).slice('1','5');
+        diaHoy = diaHoy.toString();
+        diaHoy = Date.parse(diaHoy);*/
+        var timeStamp = Math.round(new Date().getTime() / 1000);
+        var timeStampYesterday = timeStamp - (24 * 3600); 
+
+        console.log("ayer" +timeStampYesterday*1000);
+
         for(let i= 0;i<this.pedido.length;i++){
-          if(this.pedido[i].estado_pedido == "Completado"){
-          this.pieChart.data.series[0]++;
+          let pedidoDia = this.pedido[i].created_at.split('T',1);
+          pedidoDia = Date.parse(pedidoDia);
+          console.log(pedidoDia)
+          console.log(pedidoDia >= new Date(timeStampYesterday*1000).getTime())
+
+          if(pedidoDia >= new Date(timeStampYesterday*1000).getTime()){
+                   
+            if(this.pedido[i].estado_pedido == "Completado"){
+            this.pieChart.data.series[0]++;
+            }
+            if(this.pedido[i].estado_pedido == "Cancelado"){
+            this.pieChart.data.series[1]++;
+            }
+            if(this.pedido[i].estado_pedido == "Esperando confirmación de stock"){
+            this.pieChart.data.series[2]++;
+            }
           }
-          if(this.pedido[i].estado_pedido == "Cancelado"){
-          this.pieChart.data.series[1]++;
-          }
-          if(this.pedido[i].estado_pedido == "Esperando confirmación de stock"){
-          this.pieChart.data.series[2]++;
-          }
+          
         }
         //calculo de porcentajes para el pieChart
         let porcentajeTotal = this.pieChart.data.series[0] + this.pieChart.data.series[1] + this.pieChart.data.series[2];
@@ -322,17 +502,30 @@
       },
 
       lineChartDatos(){
+       
+       
+       let timeStamp = Math.round(new Date().getTime() / 1000);
+        let timeStampLastWeek = timeStamp - (7 * 24 * 3600);
 
-        for(let i= 0;i<this.pedido.length;i++){
-          if(this.pedido[i].estado_pedido == "Completado"){
-          this.pieChart.data.series[0]++;
-          }
-          if(this.pedido[i].estado_pedido == "Cancelado"){
-          this.pieChart.data.series[1]++;
-          }
-          if(this.pedido[i].estado_pedido == "Esperando confirmación de stock"){
-          this.pieChart.data.series[2]++;
-          }
+        for(let j=6; j>=0;j--){
+          for(let i= 0;i<this.pedido.length;i++){
+            let pedidoDia = this.pedido[i].created_at.split('T',1);
+            pedidoDia = Date.parse(pedidoDia);
+            let timeStampYesterday = timeStamp - ( j *24 * 3600);
+            console.log(pedidoDia >= new Date(timeStampLastWeek*1000).getTime() && pedidoDia == new Date(timeStampYesterday *1000).getTime())
+
+           // if(pedidoDia >= new Date(timeStampLastWeek*1000).getTime() && pedidoDia <= new Date(timeStampYesterday*1000)){
+              if(this.pedido[i].estado_pedido == "Completado"){
+              this.lineChart.data.series[0][j]++;
+              }
+              if(this.pedido[i].estado_pedido == "Cancelado"){
+              this.lineChart.data.series[1][j]++;
+              }
+              if(this.pedido[i].estado_pedido == "Esperando confirmación de stock"){
+              this.lineChart.data.series[2][j]++;
+              }
+            }
+         // }
         }
       },
 
@@ -341,17 +534,49 @@
           for(let i = 0; i<this.pedido.length;i++){
             let mes = this.pedido[i].updated_at.split('-',2).slice('1');
             if(this.pedido[i].estado_pedido == "Completado" &&  mes[0] == j+1){
-              console.log(this.pedido[i].updated_at.split('-',2).slice('1'))
               this.barChart.data.series[0][j] +=  this.pedido[i].precio; 
             }          
           }
         }
       },
-    },
-    computed:{
-      update(){
-        return this.updateData;
+
+      barChartDatosProductos(){
+       
+          this.barChartProductos.data.series.splice(this.producto.length);
+        
+        for(let j = 0; j<this.producto.length;j++){
+          for(let i = 0; i< this.pedido_y_detalle.length;i++){
+            let mes = this.pedido_y_detalle[i].updated_at.split('-',2).slice('1');
+            console.log(mes)
+
+            if(this.pedido_y_detalle[i].estado_pedido == "Completado" && this.pedido_y_detalle[i].id_producto === this.producto[j].id){
+
+              this.barChartProductos.data.series[0][j] += this.pedido_y_detalle[i].peso;
+
+            }
+          }
+        }
+
+      },
+
+      //modal metodos
+      addEgresos(button){
+        this.$root.$emit('bv::show::modal', this.infoModal.id, button);
+      },
+      resetInfoModal() {
+      this.infoModal.content = '';
+      },
+      updateBarData(){
+        for(let index = 0;index<12;index++){
+        this.barChart.data.series[1].splice(index, 1, this.infoModal.barChart[index])
+        }
+        this.resetInfoModal();
+
       }
+    },
+
+    computed:{
+      
     }
   }
 </script>
