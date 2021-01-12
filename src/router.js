@@ -187,7 +187,7 @@ export default new Router({
             component: CarritoCompra  
           },
           {
-            path: '/detallePedido/:id',
+            path: 'detallePedido/:id',
             name: 'DetallePedido',
             component: DetallePedido,
             props: true
