@@ -29,6 +29,7 @@ import Pedidos from './views/Pedidos.vue'
 
 //Client pages
 import  PedidoCliente from 'src/pages/PedidoCliente.vue'
+import DetallePedidoClient from './views/DetallePedidoClient.vue'
 
 
 Vue.use(Router)
@@ -97,9 +98,9 @@ export default new Router({
             component: PedidoCliente
           },
           {
-          path: '/detallePedido/:id',
-            name: 'DetallePedido',
-            component: DetallePedido,
+          path: 'detallePedido/:id',
+            name: 'DetallePedidoClient',
+            component: DetallePedidoClient,
             props: true
           },          
           {

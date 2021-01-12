@@ -8,19 +8,18 @@
         <p>Peso: {{ pedido.peso }}kg</p>
         </div>
         <div class="card-footer">
-          <b-button variant="info" @click="verPedido(pedido.id,$event.target)" class="boton-ver"  >Ver</b-button>
+          <b-button variant="info" @click="$emit('ver-pedido',pedido.id)" class="boton-ver"  >Ver</b-button>
         </div>
       </div>
   </div>
-  <b-modal  :id="infoModal.id" title="Pedido" ok-only @hide="resetInfoModal">
-    <pre>HOLA MUNDO</pre>
-  </b-modal>
 </div>
 </template>
 
 <script>
 
 import gql from "graphql-tag";
+import router from '../router';
+
 
 const GET_DETALLE_POR_ID = gql`
 query GetDetallePorId($_id: Int! ) {
@@ -44,37 +43,12 @@ export default {
   data(){
       return{
           pedido_y_detalle: [],
-          infoModal: {
-            id: 'info-modal',
-            content: '',
-            id_pedido: ''
-        }
-
       }
   },
   apollo:{
     
     
   },
-  methods: {
-         async verPedido(idPedido,button) {
-            // this.infoModal.id_pedido = idPedido;
-             this.pedido_y_detalle = await this.$apollo.query( {
-                query: GET_DETALLE_POR_ID,
-                 variables: {                 
-                    "_id" : idPedido
-                    }
-                });
-
-             this.$root.$emit('bv::show::modal', this.infoModal.id, button);         
-
-         },
-         resetInfoModal() {
-            this.infoModal.id_cliente = '';
-            this.infoModal.content = '';
-        },
-      
-  }
 };
 </script>
 

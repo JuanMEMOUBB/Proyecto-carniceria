@@ -1,15 +1,18 @@
 <template>
   <div class="list-of-pedidos">
-    <pedido-item-client v-for="pedido in pedido" :key="pedido.id" :pedido="pedido" class="pedido-item" v-on:ver-pedido="$emit('ver-pedido',pedido.id)"></pedido-item-client>
+    <pedido-item-client v-for="pedido in pedido" :key="pedido.id" :pedido="pedido" class="pedido-item" v-on:ver-pedido="verPedido"></pedido-item-client>
   </div>
 </template>
 
 <script>
 import PedidoItemClient from "src/components/PedidoItemClient.vue";
 import gql from "graphql-tag";
+import router from '../router';
+
 export const GET_PEDIDOS = gql`
 query getPedidos($id_user: String!) {
   pedido(where: {cliente: {user: {id: {_eq: $id_user}}}}) {
+    id
     estado_pedido
     peso
     precio
@@ -47,7 +50,13 @@ export default {
         };
       }
     }
-  }
+  },
+  methods: {
+         verPedido(id) {
+           router.push({  path: `/cliente/detallePedido/${id}` })
+
+         }
+     }  
 };
 </script>
 
