@@ -29,11 +29,14 @@
         
         <tbody>
           <tr v-for="product in  filterProduct" v-bind:key="product.id">
-            <td>{{ product.nombre }}</td>
-            <td>${{ product.precio }}</td>
-            <td>{{ categoria(product.id_categoria) }}</td>
-            <td><b-button size="sm" @click="info(product, $event.target)" class="mr-1">
+            <td v-if="!product.deleted_at">{{ product.nombre }}</td>
+            <td v-if="!product.deleted_at">${{ product.precio }}</td>
+            <td v-if="!product.deleted_at">{{ categoria(product.id_categoria) }}</td>
+            <td v-if="!product.deleted_at"><b-button size="sm" @click="info(product, $event.target)" class="mr-1">
           Editar
+        </b-button></td>
+        <td v-if="!product.deleted_at"><b-button variant="danger" size="sm" @click="borrarProducto(product.id)" class="mr-1">
+          Eliminar
         </b-button></td>          
           </tr>
         </tbody>
@@ -82,6 +85,7 @@ const GET_PRODUCTOS = gql`
     precio
     id_categoria
     descripcion
+    deleted_at
   }
   }
 `;
@@ -96,6 +100,13 @@ mutation MyMutation($_eq: Int!, $nombre: String!, $precio: Int!, $descripcion: S
 const INSERT_PRODUCTO = gql`
 mutation InsertProducto($nombre: String!, $precio: Int!, $id_categoria: Int!, $descripcion: String!) {
   insert_producto(objects: {nombre: $nombre, precio: $precio, id_categoria: $id_categoria, descripcion: $descripcion}) {
+    affected_rows
+  }
+}
+`;
+const DELETE_LOGIC_PRODUCTO = gql`
+mutation deleteProducto($_eq: Int!, $deleted_at: timestamptz!) {
+  update_producto(where: {id: {_eq: $_eq}}, _set: {deleted_at: $deleted_at}) {
     affected_rows
   }
 }
@@ -172,6 +183,21 @@ export default {
         if(id === 5){
             return "Pavo";
         }
+    },
+
+    borrarProducto(idProducto){
+      if(confirm("¿Esta seguro que desea borrar el producto? ¡Este proceso es irrevertible!")){
+        this.$apollo.mutate({
+          mutation: DELETE_LOGIC_PRODUCTO,
+          variables:{
+            "_eq": idProducto,
+            "deleted_at": new Date()
+          },
+          refetchQueries: GET_PRODUCTOS
+        })      
+
+      }
+
     },
 
     //metodos Modal
