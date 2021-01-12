@@ -16,7 +16,9 @@
               <label for="input-default">Numero de Seguimiento: {{numero_seguimiento}}</label>
             </b-col>
           </b-row>
-          <b-button v-if="estado_pedido == 'Esperando confirmación de stock'" @click="cancelarPedido">Cancelar</b-button>
+          <b-row  align-v="end" class="-align-right">
+          <b-button align="right" variant="danger"  v-if="estado_pedido == 'Esperando confirmación de stock'" @click="cancelarPedido">Cancelar</b-button>
+          </b-row>
 
         </div>
       </b-container>
@@ -93,16 +95,17 @@ export default {
 
   methods:{
     cancelarPedido(){
-      this.estado_pedido = "Cancelado"
-      this.$apollo.mutate({
-        mutation: UPDATE_ESTADO_PEDIDO,
-        variables: {
-          "_eq" : this.id,
-          "estado_pedido" : this.estado_pedido,
-        }
-      })
-
-    }
+      if(confirm("¿Esta seguro que desea cancelar?")){
+        this.estado_pedido = "Cancelado"
+        this.$apollo.mutate({
+          mutation: UPDATE_ESTADO_PEDIDO,
+          variables: {
+            "_eq" : this.id,
+            "estado_pedido" : this.estado_pedido,
+          }
+        })
+      }
+    },
   }
     
 };
