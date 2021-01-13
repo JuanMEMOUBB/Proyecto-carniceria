@@ -1,7 +1,11 @@
 <template>
   <div class="container">
-    <div id="vue-table" style="overflow-x:auto;">
 
+    <b-button class="mr-1" onClick="history.go(-1);">Volver</b-button>
+
+
+
+    <div id="vue-table" style="overflow-x:auto;">
       <table class="table table-striped" style="width:100%">        
         <thead>
           <tr>
