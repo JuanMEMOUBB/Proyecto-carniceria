@@ -197,6 +197,7 @@ export default {
         })      
 
       }
+      this.$apollo.queries.producto.refetch()
 
     },
 

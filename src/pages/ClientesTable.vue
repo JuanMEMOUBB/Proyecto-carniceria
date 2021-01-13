@@ -36,11 +36,6 @@
           </tr>
         </tbody>
       </table>
-
-      <!-- InfoModal -->
-      <b-modal v-if="infoModal.content" :id="infoModal.id" title="Pedidos" ok-only @hide="resetInfoModal">
-    <pre>{{ infoModal.content }}</pre>
-  </b-modal>
     </div>
   </div>
 </template>
@@ -48,6 +43,7 @@
 <script>
 
 import gql from "graphql-tag";
+import router from '../router';
 const GET_CLIENTES = gql`
   query getClientes {
     cliente {
@@ -131,22 +127,11 @@ export default {
     },
 
     //metodos modal
-    async verPedidos(clienteID, button){
-      this.infoModal.id_cliente = clienteID;
-      this.pedidoCliente = await this.$apollo.query({
-        query: GET_PEDIDOS_DE_CLIENTE,
-        variables: {
-          "_eq": clienteID
-        }
-      });
-      console.log(this.pedidoCliente)
-      this.infoModal.content = JSON.stringify(this.pedidoCliente.data, null, 2);
-      this.$root.$emit('bv::show::modal', this.infoModal.id, button);
+    verPedidos(clienteID){
+
+      router.push({ name: 'ClientePedidoDetail', params: { id: clienteID } })
+      
     },
-    resetInfoModal() {
-      this.infoModal.id_cliente = '';
-      this.infoModal.content = '';
-    }
   },
   
 

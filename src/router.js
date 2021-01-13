@@ -26,6 +26,7 @@ import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
 import Pedidos from './views/Pedidos.vue'
+import ClientePedidoDetail from './views/ClientePedidoDetail.vue'
 
 //Client pages
 import  PedidoCliente from 'src/pages/PedidoCliente.vue'
@@ -191,6 +192,12 @@ export default new Router({
             path: 'detallePedido/:id',
             name: 'DetallePedido',
             component: DetallePedido,
+            props: true
+          },
+          {
+            path: 'clientePedidoDetail/:id',
+            name: 'ClientePedidoDetail',
+            component: ClientePedidoDetail,
             props: true
           },
         ]
