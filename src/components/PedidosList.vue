@@ -9,9 +9,10 @@
       <b-navbar-nav>
         <a class="nav-link " href="#estd" @click="estado='%'">Todas</a>
         <a class="nav-link " href="#estd" @click="estado='esperando confirmación de stock%'">Esperando confirmación de stock</a>
-        <a class="nav-link " href="#estd" @click="estado='pedido confirmado%'">Pedido Confirmado</a>
-        <a class="nav-link " href="#estd" @click="estado='enviado%'">Enviado</a>
-        <a class="nav-link " href="#estd" @click="estado='completado%'">Completado</a>
+        <a class="nav-link " href="#estd" @click="estado='pedido confirmado%'">Pedido Confirmados</a>
+        <a class="nav-link " href="#estd" @click="estado='enviado%'">Enviados</a>
+        <a class="nav-link " href="#estd" @click="estado='completado%'">Completados</a>
+        <a class="nav-link " href="#estd" @click="estado='cancelado%'">Cancelados</a>
       </b-navbar-nav>
 
       <!-- Right aligned nav items 
@@ -34,17 +35,29 @@
   </b-navbar>
 
   <div class="list-of-pedidos">
-    <b-container fluid="sm" id="prod">
-            <b-row class="container-fluid justify-content-md-center">
-              <pedido-item 
-              v-for="pedido in pedido" 
-              :key="pedido.id" 
-              :pedido="pedido" 
-              class="pedido-item" 
-              v-on:ver-pedido="$emit('ver-pedido',pedido.id)"
-              ></pedido-item>
-            </b-row>
-    </b-container>
+    <table fluid="sm" id="prod" class="table table-striped">
+      <thead>
+          <tr>
+            <th style="width: 20%" @click="sort('estado_pedido')">Estado</th>
+            <th style="width: 20%" @click="sort('direccion')">Dirección</th>
+            <th style="width: 20%" @click="sort('peso')">Peso Total</th>
+            <th style="width: 20%" @click="sort('precio')">Precio Total</th>
+            <th style="width: 20%" @click="sort('nombre')">Cliente</th>            
+          </tr>
+        </thead>
+            
+      <tbody>
+        <tr v-for="pedido in pedido" :key="pedido.key" :pedido="sortPedidos" class="pedido-item">
+          <td>{{ pedido.estado_pedido }}</td>
+          <td>{{ pedido.direccion }}</td>
+          <td>{{ pedido.peso }}kg</td>
+          <td>${{ pedido.precio }}</td>
+          <td>{{ pedido.cliente.nombre }} {{pedido.cliente.apellido_paterno}}</td>
+          <td><b-button variant="info" @click="$emit('ver-pedido',pedido.id)" class="boton-ver"  >Ver</b-button></td>
+        </tr>
+              
+        </tbody>
+    </table>
   </div>
 
   </div>
@@ -53,6 +66,7 @@
 <script>
 import PedidoItem from "./PedidoItem";
 import gql from "graphql-tag";
+
 export const GET_PEDIDOS = gql`
   query getPedidos($estado_pedido: String!) {
     pedido(where: {estado_pedido: {_ilike: $estado_pedido}}) {
@@ -60,7 +74,12 @@ export const GET_PEDIDOS = gql`
     estado_pedido
     direccion
     peso
+    precio
     id_cliente
+    cliente {
+      nombre
+      apellido_paterno
+    }
   }
   }
 `;
@@ -70,7 +89,9 @@ export default {
   data() {
     return {
       pedido: [],
-      estado: '%'
+      estado: 'esperando confirmación de stock%',
+      currentSort:'pedido.estado_pedido',
+      currentSortDir:'asc',
     };
   },
   apollo: {
@@ -82,8 +103,31 @@ export default {
         }
       }
     }
+  },
+  methods:{
+    sort:function(sortColumn) {
+      //if s == current sort, reverse
+      if(sortColumn === this.currentSort) {
+        this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+      }
+      this.currentSort = sortColumn;
+    },
+
+  },
+  computed:{
+    sortPedidos:function() {
+    return this.pedido.sort((a,b) => {
+      let modifier = 1;
+      if(this.currentSortDir === 'desc') modifier = -1;
+      if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+      if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+      return 0;
+    });
   }
-};
+  },
+
+
+}
 </script>
 
 <style>
