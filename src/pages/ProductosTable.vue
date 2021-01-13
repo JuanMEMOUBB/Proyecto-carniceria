@@ -34,23 +34,6 @@
               </th>
             </tr>
           </thead>
-
-          <tbody>
-            <tr v-for="product in filterProduct" v-bind:key="product.id">
-              <td>{{ product.nombre }}</td>
-              <td>${{ product.precio }}</td>
-              <td>{{ categoria(product.id_categoria) }}</td>
-              <td>
-                <b-button
-                  size="sm"
-                  @click="info(product, $event.target)"
-                  class="mr-1"
-                >
-                {{ column }}
-              </a>
-            </th>
-          </tr>
-        </thead>
         
         <tbody>
           <tr v-for="product in  filterProduct" v-bind:key="product.id">
