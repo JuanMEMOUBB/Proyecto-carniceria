@@ -1,16 +1,17 @@
 {
-  "name": "vue-light-bootstrap-dashboard",
+  "name": "proyecto-carniceria",
   "version": "2.0.0",
   "private": true,
-  "description": "Vue light bootstrap dashboard",
-  "author": "cristijora <joracristi@gmail.com>",
+  "description": "proyecto carniceria",
+  "author": "juan <juanmemo181995@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "e2e": "node test/e2e/runner.js",
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve --open",
-    "lint-fix": "vue-cli-service lint --fix"
+    "lint-fix": "vue-cli-service lint --fix",
+    "deploy": "sh deploy.sh"
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",
