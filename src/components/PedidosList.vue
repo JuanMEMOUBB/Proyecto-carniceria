@@ -14,23 +14,6 @@
         <a class="nav-link " href="#estd" @click="estado='completado%'">Completados</a>
         <a class="nav-link " href="#estd" @click="estado='cancelado%'">Cancelados</a>
       </b-navbar-nav>
-
-      <!-- Right aligned nav items 
-      <b-navbar-nav class="ml-auto">
-        <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-        </b-nav-form>
-
-        <b-nav-item-dropdown right>
-          
-          <template #button-content>
-            <em>User</em>
-          </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>-->
-      <!--</b-navbar-nav>-->
     </b-collapse>
   </b-navbar>
 
@@ -38,10 +21,10 @@
     <table fluid="sm" id="prod" class="table table-striped">
       <thead>
           <tr>
-            <th style="width: 20%" @click="sort('estado_pedido')">Estado</th>
-            <th style="width: 20%" @click="sort('direccion')">Dirección</th>
-            <th style="width: 20%" @click="sort('peso')">Peso Total</th>
-            <th style="width: 20%" @click="sort('precio')">Precio Total</th>
+            <th class="sortRow" style="width: 20%" @click="sort('estado_pedido')">Estado</th>
+            <th class="sortRow" style="width: 20%" @click="sort('direccion')">Dirección</th>
+            <th class="sortRow" style="width: 20%" @click="sort('peso')">Peso Total</th>
+            <th class="sortRow" style="width: 20%" @click="sort('precio')">Precio Total</th>
             <th style="width: 20%" @click="sort('nombre')">Cliente</th>            
           </tr>
         </thead>
@@ -64,18 +47,18 @@
 </template>
 
 <script>
-import PedidoItem from "./PedidoItem";
 import gql from "graphql-tag";
 
 export const GET_PEDIDOS = gql`
   query getPedidos($estado_pedido: String!) {
-    pedido(where: {estado_pedido: {_ilike: $estado_pedido}}) {
+    pedido(where: {estado_pedido: {_ilike: $estado_pedido}},  order_by: {created_at: desc}) {
     id
     estado_pedido
     direccion
     peso
     precio
     id_cliente
+    created_at
     cliente {
       nombre
       apellido_paterno
@@ -85,7 +68,6 @@ export const GET_PEDIDOS = gql`
 `;
 export default {
   name: "PedidosList",
-  components: { PedidoItem },
   data() {
     return {
       pedido: [],
@@ -147,5 +129,9 @@ export default {
 h1,
 h2 {
   color: #fff;
+}
+.sortRow {
+  cursor: pointer;
+  color: rgb(29, 207, 239);
 }
 </style>
