@@ -57,7 +57,7 @@
   <div class="list-of-productos">
  <b-container fluid="sm" id="prod">
       <b-row class="container-fluid justify-content-md-center">
-        <producto-item
+        <producto-item v-if="!producto.deleted_at"
           v-for="producto in producto"
           :key="producto.id"
           :producto="producto"
@@ -81,6 +81,7 @@ const GET_PRODUCTOS = gql`
     id_categoria
     imagen
     descripcion
+    deleted_at
   }
 }
 `;

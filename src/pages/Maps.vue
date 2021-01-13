@@ -118,8 +118,8 @@
             :chart-responsive-options="barChartProductos.responsiveOptions"
             chart-type="Bar">
             <template slot="header">
-              <h4 class="card-title">Venta Productos</h4>
-              <p class="card-category"></p>
+              <h4 class="card-title">Venta de Productos</h4>
+              <p class="card-category">Del mes pasado</p>
             </template>
             <template slot="footer">
               <div class="legend">
@@ -404,8 +404,12 @@ query getProducto {
         },
         barChartProductos: {
           data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            series: []
+            labels: [],
+            series: [
+              [10,20],
+              [30,30],
+              [0,5,10]
+            ]
             },
           
           options: {
@@ -472,14 +476,9 @@ query getProducto {
         var timeStamp = Math.round(new Date().getTime() / 1000);
         var timeStampYesterday = timeStamp - (24 * 3600); 
 
-        console.log("ayer" +timeStampYesterday*1000);
-
-        for(let i= 0;i<this.pedido.length;i++){
+        for(let i= 0;i< this.pedido.length;i++){
           let pedidoDia = this.pedido[i].created_at.split('T',1);
           pedidoDia = Date.parse(pedidoDia);
-          console.log(pedidoDia)
-          console.log(pedidoDia >= new Date(timeStampYesterday*1000).getTime())
-
           if(pedidoDia >= new Date(timeStampYesterday*1000).getTime()){
                    
             if(this.pedido[i].estado_pedido == "Completado"){
@@ -541,21 +540,27 @@ query getProducto {
       },
 
       barChartDatosProductos(){
-       
+       for(let i = 0; i<this.producto.length;i++){
+         this.barChartProductos.data.labels[i] = this.producto[i].nombre;
+       }
           this.barChartProductos.data.series.splice(this.producto.length);
+
+          console.log("largo:" + this.barChartProductos.data.series[0].length)
         
-        for(let j = 0; j<this.producto.length;j++){
-          for(let i = 0; i< this.pedido_y_detalle.length;i++){
-            let mes = this.pedido_y_detalle[i].updated_at.split('-',2).slice('1');
-            console.log(mes)
+          for(let p = 0 ; p< this.producto.length; p++){
+            for(let i = 0; i< this.pedido_y_detalle.length;i++){
+              let mes = this.pedido_y_detalle[i].updated_at.split('-',2).slice('1');
+              console.log(mes)
 
-            if(this.pedido_y_detalle[i].estado_pedido == "Completado" && this.pedido_y_detalle[i].id_producto === this.producto[j].id){
+              if(this.pedido_y_detalle[i].estado_pedido == "Completado" && this.pedido_y_detalle[i].id_producto === this.producto[p].id){
 
-              this.barChartProductos.data.series[0][j] += this.pedido_y_detalle[i].peso;
+                //this.barChartProductos.data.series[p][j] = this.pedido_y_detalle[i].peso;
+                this.barChartProductos[p].push(this.pedido_y_detalle[i].peso)
 
+              }
             }
           }
-        }
+        
 
       },
 

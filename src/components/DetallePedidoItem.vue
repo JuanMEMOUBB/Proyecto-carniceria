@@ -12,8 +12,8 @@
      <tbody>
         <tr :key="pedido_y_detalle.id_producto">
             <td>{{ pedido_y_detalle.nombre }}</td>
-            <td v-if="pedido_y_detalle.al_vacio">Verdadero</td>
-            <td v-else>Falso</td>
+            <td v-if="pedido_y_detalle.al_vacio">Si</td>
+            <td v-else>No</td>
             <td>{{ pedido_y_detalle.peso }}kg </td>
         </tr>
      </tbody>

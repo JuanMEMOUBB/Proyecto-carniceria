@@ -21,7 +21,7 @@ export default {
      },
      methods: {
          verPedido(id) {
-           router.push({ name: 'DetallePedido', params: { id } })
+           router.push({  path: `/admin/detallePedido/${id}` })
 
          }
      }  

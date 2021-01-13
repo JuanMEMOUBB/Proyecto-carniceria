@@ -26,9 +26,11 @@ import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
 import Pedidos from './views/Pedidos.vue'
+import ClientePedidoDetail from './views/ClientePedidoDetail.vue'
 
 //Client pages
 import  PedidoCliente from 'src/pages/PedidoCliente.vue'
+import DetallePedidoClient from './views/DetallePedidoClient.vue'
 
 
 Vue.use(Router)
@@ -96,6 +98,12 @@ export default new Router({
             name: 'Upgrade to PRO',
             component: PedidoCliente
           },
+          {
+          path: 'detallePedido/:id',
+            name: 'DetallePedidoClient',
+            component: DetallePedidoClient,
+            props: true
+          },          
           {
             path: 'tienda',
             name: 'Tienda',
@@ -181,9 +189,15 @@ export default new Router({
             component: CarritoCompra  
           },
           {
-            path: '/detallePedido/:id',
+            path: 'detallePedido/:id',
             name: 'DetallePedido',
             component: DetallePedido,
+            props: true
+          },
+          {
+            path: 'clientePedidoDetail/:id',
+            name: 'ClientePedidoDetail',
+            component: ClientePedidoDetail,
             props: true
           },
         ]

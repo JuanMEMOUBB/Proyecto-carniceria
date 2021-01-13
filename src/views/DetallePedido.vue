@@ -115,13 +115,18 @@ export default {
 
   methods:{
     submit(){
-      const {estado_pedido, nombre_empresa_despacho} = this.$data;
+      if(!this.nombre_empresa_despacho){
+        this.nombre_empresa_despacho = "N/A"
+      }
+      if(this.numero_seguimiento = "N/A"){
+        this.numero_seguimiento = "N/A"
+      }
       this.$apollo.mutate({
         mutation: UPDATE_ESTADO_PEDIDO,
         variables: {
           "_eq" : this.id,
-          "estado_pedido" : estado_pedido,
-          "nombre_empresa_despacho": nombre_empresa_despacho,
+          "estado_pedido" : this.estado_pedido,
+          "nombre_empresa_despacho": this.nombre_empresa_despacho,
           "numero_seguimiento": this.numero_seguimiento,
         }
       })

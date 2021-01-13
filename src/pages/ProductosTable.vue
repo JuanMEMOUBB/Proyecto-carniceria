@@ -46,12 +46,26 @@
                   @click="info(product, $event.target)"
                   class="mr-1"
                 >
-                  Editar
-                </b-button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                {{ column }}
+              </a>
+            </th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr v-for="product in  filterProduct" v-bind:key="product.id">
+            <td v-if="!product.deleted_at">{{ product.nombre }}</td>
+            <td v-if="!product.deleted_at">${{ product.precio }}</td>
+            <td v-if="!product.deleted_at">{{ categoria(product.id_categoria) }}</td>
+            <td v-if="!product.deleted_at"><b-button size="sm" @click="info(product, $event.target)" class="mr-1">
+          Editar
+        </b-button></td>
+        <td v-if="!product.deleted_at"><b-button variant="danger" size="sm" @click="borrarProducto(product.id)" class="mr-1">
+          Eliminar
+        </b-button></td>          
+          </tr>
+        </tbody>
+      </table>
       </div>
       <button @click="download">Download PDF</button>
 
@@ -202,12 +216,14 @@ import jsPDF from "jspdf";
 const GET_PRODUCTOS = gql`
   query getProductos {
     producto {
-      id
-      nombre
-      precio
-      id_categoria
-      descripcion
-    }
+    id
+    nombre
+    precio
+    id_categoria
+    descripcion
+    deleted_at
+  }
+
   }
 `;
 
@@ -250,6 +266,13 @@ const INSERT_PRODUCTO = gql`
       affected_rows
     }
   }
+`;
+const DELETE_LOGIC_PRODUCTO = gql`
+mutation deleteProducto($_eq: Int!, $deleted_at: timestamptz!) {
+  update_producto(where: {id: {_eq: $_eq}}, _set: {deleted_at: $deleted_at}) {
+    affected_rows
+  }
+}
 `;
 
 export default {
@@ -321,6 +344,22 @@ export default {
       if (id === 5) {
         return "Pavo";
       }
+    },
+
+    borrarProducto(idProducto){
+      if(confirm("¿Esta seguro que desea borrar el producto? ¡Este proceso es irrevertible!")){
+        this.$apollo.mutate({
+          mutation: DELETE_LOGIC_PRODUCTO,
+          variables:{
+            "_eq": idProducto,
+            "deleted_at": new Date()
+          },
+          refetchQueries: GET_PRODUCTOS
+        })      
+
+      }
+      this.$apollo.queries.producto.refetch()
+
     },
 
     //metodos Modal

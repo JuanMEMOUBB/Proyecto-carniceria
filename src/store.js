@@ -13,17 +13,22 @@ export default new Vuex.Store({
     },
     shoppingCart: [],
     cartTotalPrice: 0,
-    cartTotalWeight: 0
+    cartTotalWeight: 0,
+    idClient: ''
     
   },
   getters:{
     getCurrentProducto: state => state.currentProducto,
     getShoppingCart: state => state.shoppingCart,
     getCartTotalPrice: state => state.cartTotalPrice,
-    getTotalQuantity: state => state.cartTotalWeight
+    getTotalQuantity: state => state.cartTotalWeight,
+    getIdClient: state => state.idClient
 
   },
   mutations: { //syncrono
+    setIdClient(state,payload){
+      state.idClient = payload;
+    },
     setCurrentProducto(state,payload){
       state.currentProducto.id = payload.id;
       state.currentProducto.name = payload.nombre;
