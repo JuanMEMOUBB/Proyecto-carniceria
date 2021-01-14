@@ -11,7 +11,7 @@
         <p>Perfil usuario</p>
       </sidebar-link>      
       <sidebar-link to="/cliente/upgrade">
-        <i class="nc-icon nc-cart-simple"></i>
+        <i class="nc-icon nc-delivery-fast"></i>
         <p>Pedidos</p>
       </sidebar-link>      
       <sidebar-link to="/cliente/tienda">
@@ -19,10 +19,10 @@
         <p>Sobre Nosotros</p>
       </sidebar-link>
 
-      <sidebar-link to="/cliente/icons">
+      <!--<sidebar-link to="/cliente/icons">
         <i class="nc-icon nc-bell-55"></i>
         <p>Contáctanos</p>
-      </sidebar-link>
+      </sidebar-link>-->
 
       
 
