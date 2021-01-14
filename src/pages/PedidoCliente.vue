@@ -126,7 +126,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .sortRow {
   cursor: pointer;
   color: rgb(29, 207, 239);
