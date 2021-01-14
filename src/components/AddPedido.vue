@@ -1,11 +1,7 @@
 <template>
   <div>
     <form class="submit-form" @submit.prevent="submit">
-      <div>
-      <fieldset>
-        <input type="text" placeholder="Direccion" v-model="direccion">
-      </fieldset>
-      </div>
+      
       <input class="btn btn-success pull-right" type="submit" value="Solicitar stock">
     </form>
   </div>
