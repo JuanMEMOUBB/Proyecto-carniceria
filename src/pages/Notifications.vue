@@ -1,132 +1,123 @@
-<template>
-  <div class="content">
-    <div class="container-fluid">
-      <card>
+<template> 
+
+
+<div class="container" id="contenedor">
+<br><br>
+        
+
+        <!-- Portfolio Item Row -->
         <div class="row">
-          <div class="col-md-6">
-            <h5>Notifications Style</h5>
-            <div class="alert alert-info">
-              <span>This is a plain notification</span>
-            </div>
-            <div class="alert alert-info">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span>This is a notification with close button.</span>
-            </div>
-            <div class="alert alert-info alert-with-icon" data-notify="container">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span data-notify="icon" class="nc-icon nc-app"></span>
-              <span data-notify="message">This is a notification with close button and icon.</span>
-            </div>
-            <div class="alert alert-info alert-with-icon" data-notify="container">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span data-notify="icon" class="nc-icon nc-app"></span>
-              <span data-notify="message">This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <h5>Notification states</h5>
-            <div class="alert alert-info">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span><b> Info - </b> This is a regular notification made with ".alert-info"</span>
-            </div>
-            <div class="alert alert-success">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span><b> Success - </b> This is a regular notification made with ".alert-success"</span>
-            </div>
-            <div class="alert alert-warning">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span><b> Warning - </b> This is a regular notification made with ".alert-warning"</span>
-            </div>
-            <div class="alert alert-danger">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span><b> Danger - </b> This is a regular notification made with ".alert-danger"</span>
-            </div>
-          </div>
-        </div>
-        <br>
-        <br>
-        <div class="places-buttons">
-          <div class="row justify-content-center">
-            <div class="col-6 text-center">
-              <h5>Notifications Places
-                <p class="category">Click to view notifications</p>
-              </h5>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-3 col-md-offset-1">
-              <button class="btn btn-default btn-block" @click="notifyVue('top', 'left')">Top Left</button>
-            </div>
-            <div class="col-md-3">
-              <button class="btn btn-default btn-block" @click="notifyVue('top', 'center')">Top Center</button>
-            </div>
-            <div class="col-md-3">
-              <button class="btn btn-default btn-block" @click="notifyVue('top', 'right')">Top Right</button>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-3 col-md-offset-1">
-              <button class="btn btn-default btn-block" @click="notifyVue('bottom', 'left')">Bottom Left</button>
-            </div>
-            <div class="col-md-3">
-              <button class="btn btn-default btn-block" @click="notifyVue('bottom', 'center')">Bottom Center</button>
-            </div>
-            <div class="col-md-3">
-              <button class="btn btn-default btn-block" @click="notifyVue('bottom', 'right')">Bottom Right</button>
+
+            <div class="col-md-8">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+                    
+
+
+<b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="4000"
+      controls
+      indicators
+      background="#ababab"
+      img-width="1024"
+      img-height="480"
+      style="text-shadow: 1px 1px 2px #333;"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+    >
+     
+
+      <!-- Slides with image only -->
+      <b-carousel-slide img-src="https://www.municipalidadchillan.cl/mercadochillan/img/locales/local25-1.jpg"></b-carousel-slide>
+
+      <!-- Slides with image only -->
+      <b-carousel-slide img-src="https://www.municipalidadchillan.cl/mercadochillan/img/locales/local25-2.jpg"></b-carousel-slide>
+
+      <!-- Slides with image only -->
+      <b-carousel-slide img-src="https://www.municipalidadchillan.cl/mercadochillan/img/locales/local25-3.jpg"></b-carousel-slide>
+
+      
+    </b-carousel>
+
+            
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
             </div>
 
-          </div>
+            <div class="col-md-4">
+                <h3>Descripción</h3>
+                <p>Rotisería y Carnicería.</p>
+                <h3>Productos</h3>
+                <ul>
+                    <p> - Carnes Cerdo</p>
+                    <p> - Carnes Pollo</p>
+                    <p> - Longanizas</p>
+                    <p> - Marca: Cecinas Benjamín de Chillán</p>
+                </ul>
+                <h3>Contacto</h3>
+                <p>
+                    NOMBRE : Mariana Osorio Sandoval
+                    <br>TELEFONO : 42-2262299 - 986576227
+                    <br>CORREO : marina_72@hotmail.com
+                </p>
+                
+            </div>
+
         </div>
-      </card>
-    </div>
-  </div>
+        <!-- /.row -->
+
+        <!-- Sector Ubicación -->
+        <br>
+        <div class="row">
+        <center><h1>Ubicación del Local</h1></center>
+        <br>
+
+        <div>
+  <b-img src="https://www.municipalidadchillan.cl/mercadochillan/img/ubicaciones/ubicacion25.jpg" fluid alt="Responsive image"></b-img>
+</div>
+            <!--<img class="img-responsive sombra" src="https://www.municipalidadchillan.cl/mercadochillan/img/ubicaciones/ubicacion25.jpg">-->
+
+        </div>
+        <!-- / Fin Sector Ubicación-->
+
+       
+
+
+
+</div>
+
 </template>
 <script>
-  import Card from 'src/components/Cards/Card.vue'
 
-  export default {
-    components: {
-      Card
-    },
-    data () {
+export default {
+    data() {
       return {
-        type: ['', 'info', 'success', 'warning', 'danger'],
-        notifications: {
-          topCenter: false
-        }
+        slide: 0,
+        sliding: null
       }
     },
     methods: {
-      notifyVue (verticalAlign, horizontalAlign) {
-        const color = Math.floor((Math.random() * 4) + 1)
-        this.$notifications.notify(
-          {
-            message: `<span>Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.</span>`,
-            icon: 'nc-icon nc-app',
-            horizontalAlign: horizontalAlign,
-            verticalAlign: verticalAlign,
-            type: this.type[color]
-          })
+      onSlideStart(slide) {
+        this.sliding = true
+      },
+      onSlideEnd(slide) {
+        this.sliding = false
       }
     }
   }
-
 </script>
-<style lang="scss">
-
-</style>
-
+<style lang="scss"></style>
