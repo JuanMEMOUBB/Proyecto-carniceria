@@ -1,13 +1,16 @@
 <template>
 <div>
 
-    <b-button @click="download">Descargar</b-button>
+    <b-button @click="downloadVentaProductoXMes">Descargar</b-button>
+    <b-button @click="downloadIngresosXMes">Descargar</b-button>
+
 
 </div>    
 </template>
 
 <script>
 import jsPDF from "jspdf";
+import 'jspdf-autotable'
 import gql from 'graphql-tag';
 
 export const GET_PEDIDOS = gql`
@@ -33,6 +36,7 @@ export const GET_PRODUCTOS = gql`
 query getProductos {
   producto(order_by: {id: asc}) {
     id
+    nombre
   }
 }
 `;
@@ -59,25 +63,79 @@ export default {
         }
     },
     methods:{
-        download(){
-           /* let fecha = this.pedido[0].updated_at
-            fecha = fecha.split('T',1).toString()
-            fecha = fecha.split('-',2); //año - mes
-            //let mes = fecha[1];
-            //this.totalProductoVendido.splice(this.producto.length);
-            this.totalProductoVendido.length = this.producto.length
+        downloadIngresosXMes(){
 
-            console.log(this.totalProductoVendido.length);*/
-            /*let headers = createHeaders([
-                "Producto",
-                "Kilogramos Vendidos"
-                ]);*/
+             const doc = new jsPDF()
+           //doc.autoTable({ html: '#my-table' })
+           let ingresos = this.reporteIngresosUltimosMeses();
+           console.log("hola")
 
-            //var doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "landscape" });
-            //doc.table(1, 1, generateData(100), headers, { autoSize: true });
+           let bodyPdf = [
+               ['Enero','$' + ingresos[0]],
+               ['Febrero','$' +ingresos[1]],
+               ['Marzo','$' +ingresos[2]],
+               ['Abril','$' +ingresos[3]],
+               ['Mayo','$' +ingresos[4]],
+               ['Junio','$' +ingresos[5]],
+               ['Julio','$' +ingresos[6]],
+               ['Agosto','$' +ingresos[7]],
+               ['Septiembre','$' +ingresos[8]],
+               ['Octubre','$' +ingresos[9]],
+               ['Noviembre','$' +ingresos[10]],
+               ['Diciembre','$' +ingresos[11]]
+               ]
+           
+ 
+            // Or use javascript directly:
+            doc.autoTable({
+            head: [['Mes', 'Ingreso']],
+            body: bodyPdf,
+            })
+            
+            doc.save('table.pdf')
 
-            this.reporteVentaProductoXMes();
-           console.log(this.totalProductoVendido);
+
+        },
+        
+        downloadVentaProductoXMes(){
+            let header= this.producto;
+          /*  for(let i = 0; i<this.producto.length;i++){
+                header[i] = this.producto[i].nombre;
+            }  */      
+/*
+            const pdf = new jsPDF();
+            //let header = ["id","name"];
+            let headerConfig = header.map(key=>({ 'nombre': key,
+            'prompt': key,
+            'width':50,
+            //'align':'center',
+            'padding':0}));
+            let data = [{id: 1, name: "Peter"},{id: 2, name: "Chris"}];
+            pdf.table(20, 30, data, headerConfig);
+            pdf.save("pdf.pdf");*/
+
+            //this.reporteVentaProductoXMes();
+           //console.log(this.totalProductoVendido);
+           this.reporteVentaProductoXMes()
+
+
+
+           const doc = new jsPDF()
+           //doc.autoTable({ html: '#my-table' })
+
+           let bodyPdf = []
+
+           for(let i= 0; i<this.producto.length;i++){
+               bodyPdf[i] = [this.producto[i].nombre,this.totalProductoVendido[i] + ' kg'];
+           }
+ 
+            // Or use javascript directly:
+            doc.autoTable({
+            head: [['Producto', 'Cantidad']],
+            body: bodyPdf,
+            })
+            
+            doc.save('table.pdf')
 
         },
 
@@ -99,24 +157,20 @@ export default {
                                 if(this.pedido[i].detallepedidos[z].producto.id == this.producto[j].id){
                                     this.totalProductoVendido[j] += this.pedido[i].detallepedidos[z].peso;
                     
-                                }
-                                console.log("producto: "+j +" tiene: " +this.totalProductoVendido[j])
-                                
+                                }                                
                             }
-
-                        }
-                        
+                        }     
                     }
-
-
-
                 }
             }
         },
 
-        reporteIngresosUltimoMes(){
+        reporteIngresosUltimosMeses(){
             let mesActual = new Date().getMonth();
-            let totalVenta = 0;
+            let totalVenta = []
+            for(let i = 0; i<mesActual+1;i++){
+            totalVenta[i] = 0;
+            }
         
 
             for(let i = 0; i<this.pedido.length;i++){               
@@ -124,19 +178,15 @@ export default {
                     let fecha = this.pedido[i].updated_at;
                     fecha = fecha.split('T',1).toString();
                     fecha = fecha.split('-',2); //año - mes, falta restar 1
-                    if(mesActual == (fecha[1]-1)){
-                        console.log(this.pedido[i].precio);
-                        totalVenta +=  this.pedido[i].precio;
 
-                    }
-                        
+                    for(let j = 0; j<mesActual+1;j++){
+                        if(j == (fecha[1]-1)){
+                            totalVenta[j] +=  this.pedido[i].precio;
+                        }
+                    } 
                 }
-
-
-
             }
-            return totalVenta
-            
+            return totalVenta            
         },
 
 
