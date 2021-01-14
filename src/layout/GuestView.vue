@@ -12,7 +12,7 @@
         <p>Perfil usuario</p>
       </sidebar-link>-->
       <sidebar-link to="/admin/clientes">
-        <i class="nc-icon nc-notes"></i>
+        <i class="nc-icon nc-single-02"></i>
         <p>Clientes</p>
       </sidebar-link>
       <sidebar-link to="/admin/typography">
@@ -26,18 +26,18 @@
       </sidebar-link>
       
       <sidebar-link to="/admin/maps">
-        <i class="nc-icon nc-pin-3"></i>
-        <p>Maps</p>
+        <i class="nc-icon nc-chart-pie-35"></i>
+        <p>Gráficos</p>
       </sidebar-link>
 
       <sidebar-link to="/admin/icons">
-        <i class="nc-icon nc-paper-2"></i>
+        <i class="nc-icon nc-notes"></i>
         <p>Cuentas</p>
       </sidebar-link>
 
       
       <sidebar-link to="/admin/tienda">
-        <i class="nc-icon nc-bell-55"></i>
+        <i class="nc-icon nc-satisfied"></i>
         <p>Sobre Nosotros</p>
       </sidebar-link>
 
@@ -70,7 +70,7 @@
         <p>Pedidos</p>
       </sidebar-link>      
       <sidebar-link to="/cliente/tienda">
-        <i class="nc-icon nc-bell-55"></i>
+        <i class="nc-icon nc-satisfied"></i>
         <p>Sobre Nosotros</p>
       </sidebar-link>
 
@@ -104,7 +104,7 @@
         <p>Tienda</p>
       </sidebar-link>      
       <sidebar-link to="/tienda">
-        <i class="nc-icon nc-bell-55"></i>
+        <i class="nc-icon nc-satisfied"></i>
         <p>Sobre Nosotros</p>
       </sidebar-link>
 

@@ -15,7 +15,7 @@
         <p>Pedidos</p>
       </sidebar-link>      
       <sidebar-link to="/cliente/tienda">
-        <i class="nc-icon nc-bell-55"></i>
+        <i class="nc-icon nc-satisfied"></i>
         <p>Sobre Nosotros</p>
       </sidebar-link>
 
