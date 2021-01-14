@@ -151,7 +151,7 @@ export default new Router({
           {
             path: 'icons',
             name: 'Icons',
-            component: Icons
+            component: () => import(/* webpackChunkName: "about" */ './pages/Reportes.vue')
           },
           {
             path: 'tienda',
