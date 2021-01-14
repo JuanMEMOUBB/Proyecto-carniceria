@@ -33,6 +33,7 @@
         <a class="nav-link " href="#prod" @click="categoria='pollo%'">Pollo</a>
         <a class="nav-link " href="#prod" @click="categoria='vacuno%'">Vacuno</a>
       </b-navbar-nav>
+      
 
       <!-- Right aligned nav items 
       <b-navbar-nav class="ml-auto">
@@ -53,7 +54,7 @@
     </b-collapse>
   </b-navbar>
 
-
+  <br><br>
   <div class="list-of-productos">
  <b-container fluid="sm" id="prod">
       <b-row class="container-fluid justify-content-md-center">
