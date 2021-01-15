@@ -65,6 +65,7 @@
 
       </div>
       -->
+      <!--
       <div class="row">
         <div class="col-md-8">
           <chart-card :chart-data="lineChart.data"
@@ -88,7 +89,9 @@
           </chart-card>
         </div>
 
-        <div class="col-md-4">
+        -->
+
+        <div class="col-md-8">
           <chart-card :chart-data="pieChart.data" chart-type="Pie">
             <template slot="header">
               <h4 class="card-title">Pedidos</h4>
@@ -132,6 +135,8 @@
           </chart-card>
         </div>
 
+        
+<!--
         <div class="col-md-6">
           <chart-card
             :chart-data="barChart.data"
@@ -233,6 +238,7 @@
             </b-container>
           </b-modal>
         </div>
+        -->
         <!--
         <div class="col-md-6">
           <card>
