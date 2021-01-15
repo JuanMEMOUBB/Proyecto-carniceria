@@ -23,9 +23,11 @@
           <tr>
             <th class="sortRow" style="width: 20%" @click="sort('estado_pedido')">Estado</th>
             <th class="sortRow" style="width: 20%" @click="sort('direccion')">Dirección</th>
-            <th class="sortRow" style="width: 20%" @click="sort('peso')">Peso Total</th>
-            <th class="sortRow" style="width: 20%" @click="sort('precio')">Precio Total</th>
-            <th style="width: 20%" @click="sort('nombre')">Cliente</th>            
+            <th class="sortRow" style="width: 10%" @click="sort('peso')">Peso Total</th>
+            <th class="sortRow" style="width: 10%" @click="sort('precio')">Precio Total</th>
+            <th style="width: 20%" @click="sort('nombre')">Cliente</th>
+            <th class="sortRow" style="width: 20%" @click="sort('created_at')">Fecha</th>
+            
           </tr>
         </thead>
             
@@ -36,6 +38,7 @@
           <td>{{ pedido.peso }}kg</td>
           <td>${{ pedido.precio }}</td>
           <td>{{ pedido.cliente.nombre }} {{pedido.cliente.apellido_paterno}}</td>
+          <td>{{ pedido.created_at.split('T',1).toString() }}</td>
           <td><b-button variant="info" @click="$emit('ver-pedido',pedido.id)" class="boton-ver"  >Ver</b-button></td>
         </tr>
               

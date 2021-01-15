@@ -2,7 +2,7 @@
   <div class="container">
     <div id="vue-table" style="overflow-x:auto;">
       <div>
-        <b-button @click="agregar($event.target)">Agregar Producto</b-button>
+        <b-button @click="agregar($event.target)" variant="success">Agregar Producto</b-button>
       </div>
 
       <input
@@ -50,7 +50,6 @@
         </tbody>
       </table>
       </div>
-      <button @click="download">Download PDF</button>
 
       <!-- Info modal-->
       <b-modal
@@ -111,6 +110,25 @@
               </b-form-invalid-feedback>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <label for="input-live">Imagen:</label>
+              <b-form-input
+                id="input-imagen"
+                :state="validacionImagen"
+                aria-describedby="input-live-help input-live-feedback"
+                placeholder="Link Imagen"
+                v-model="infoModal.imagen"
+                trim
+              >
+              </b-form-input>
+              <b-form-invalid-feedback id="input-live-feedback">
+                Ingrese un link de imagen
+              </b-form-invalid-feedback>
+            </div>
+          </div>
+
           <div class="row">
             <form @submit.prevent="submit">
               <div class="row">
@@ -205,6 +223,7 @@ const GET_PRODUCTOS = gql`
     id_categoria
     descripcion
     deleted_at
+    imagen
   }
 
   }
@@ -217,6 +236,7 @@ const EDIT_PRODUCTO = gql`
     $precio: Int!
     $descripcion: String!
     $id_categoria: Int!
+    $imagen: String!
   ) {
     update_producto(
       where: { id: { _eq: $_eq } }
@@ -225,6 +245,7 @@ const EDIT_PRODUCTO = gql`
         precio: $precio
         descripcion: $descripcion
         id_categoria: $id_categoria
+        imagen: $imagen
       }
     ) {
       affected_rows
@@ -237,6 +258,7 @@ const INSERT_PRODUCTO = gql`
     $precio: Int!
     $id_categoria: Int!
     $descripcion: String!
+    $imagen: String!
   ) {
     insert_producto(
       objects: {
@@ -244,6 +266,7 @@ const INSERT_PRODUCTO = gql`
         precio: $precio
         id_categoria: $id_categoria
         descripcion: $descripcion
+        imagen: $imagen
       }
     ) {
       affected_rows
@@ -281,7 +304,8 @@ export default {
         nombre: "",
         precio: "",
         id_categoria: "",
-        descripcion: ""
+        descripcion: "",
+        imagen: "",
       },
       type: ["", "info", "success", "warning", "danger"],
       notifications: {
@@ -295,17 +319,7 @@ export default {
     }
   },
   methods: {
-    download() {
-      const doc = new jsPDF("portrait", "pt", "a4");
-      const contentHtml = this.$refs.content.innerHTML;
-      doc.html(contentHtml, {
-        callback: function(doc) {
-          doc.save("archivo.pdf");
-        },
-        x: 10,
-        y: 10
-      });
-    },
+    
     sortBy: function(sortKey) {
       this.reverse = this.sortKey === sortKey ? !this.reverse : false;
       this.sortKey = sortKey;
@@ -352,6 +366,7 @@ export default {
       this.infoModal.descripcion = product.descripcion;
       this.infoModal.id_producto = product.id;
       this.infoModal.id_categoria = product.id_categoria;
+      this.infoModal.imagen = product.imagen;
       this.infoModal.content = JSON.stringify(product, null, 2);
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
     },
@@ -360,6 +375,7 @@ export default {
       this.infoModal.precio = "";
       this.infoModal.descripcion = "";
       this.infoModal.id_categoria = "";
+      this.infoModal.imagen = "";
       this.$apollo.queries.producto.refetch();
     },
     editarInfo() {
@@ -370,7 +386,8 @@ export default {
             nombre: this.infoModal.nombre,
             precio: this.infoModal.precio,
             descripcion: this.infoModal.descripcion,
-            id_categoria: this.infoModal.id_categoria
+            id_categoria: this.infoModal.id_categoria,
+            imagen: this.infoModal.imagen,
           },
           refetchQueries: GET_PRODUCTOS
         });
@@ -383,7 +400,8 @@ export default {
             nombre: this.infoModal.nombre,
             precio: this.infoModal.precio,
             descripcion: this.infoModal.descripcion,
-            id_categoria: this.infoModal.id_categoria
+            id_categoria: this.infoModal.id_categoria,
+            imagen: this.infoModal.imagen,
           },
           refetchQueries: GET_PRODUCTOS
         });
@@ -441,9 +459,15 @@ export default {
       return (
         this.validacionDescripcion &&
         this.validacionPrecio &&
-        this.validacionNombre
+        this.validacionNombre &&
+        this.validacionImagen
       );
-    }
+    },
+    validacionImagen() {
+      return this.infoModal.imagen && this.infoModal.imagen.length > 10
+        ? true
+        : false;
+    },
   }
 };
 </script>
