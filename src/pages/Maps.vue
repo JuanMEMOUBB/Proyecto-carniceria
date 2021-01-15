@@ -277,7 +277,6 @@
         -->
       </div>
     </div>
-  </div>
 </template>
 <script>
   import ChartCard from 'src/components/Cards/ChartCard.vue'

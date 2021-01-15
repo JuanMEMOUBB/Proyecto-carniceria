@@ -41,6 +41,9 @@
 
           <input type="radio" id="Completado" value = "Completado" name="Estado" v-model="estado_pedido">
           <label for="Completado">Completado</label>
+
+          <input type="radio" id="Cancelado" value = "Cancelado" name="Estado" v-model="estado_pedido">
+          <label for="Cancelado">Cancelado</label>
           <br>
           <b-button variant="success" class="mr-1" type="submit" value="actualizar">Actualizar</b-button>
 
