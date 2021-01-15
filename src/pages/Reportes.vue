@@ -23,7 +23,7 @@
                 class="mb-2"
             >
                 <b-card-text>
-                Cantidad de productos vendidos en el ultimo mes.
+                Ganancias mensuales con respecto a las ventas de pedidos.
                 </b-card-text>    
                 <b-button @click="addEgresos">Descargar</b-button>
             </b-card>
@@ -33,6 +33,7 @@
 
     <b-modal  :id="infoModal.id" title="Egresos" ok-only @hide="downloadIngresosXMes">
             <b-container>
+              <h4>Anotar los egresos en los meses que le gustaría comparar</h4>
               <b-row class="my-1">
                 <b-col sm="2">
                   <label for="input-number-1">Enero</label>
