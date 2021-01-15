@@ -8,14 +8,16 @@
         <div>
           <b-row class="my-1">
             <b-col sm="2">
-              <label for="input-default">Empresa de Despacho: {{nombre_empresa_despacho}} </label>
+              <label for="input-default"><b>Empresa de Despacho:</b> {{nombre_empresa_despacho}} </label>
             </b-col>
           </b-row>
           <b-row class="my-2">
             <b-col sm="2">
-              <label for="input-default">Numero de Seguimiento: {{numero_seguimiento}}</label>
+              <label for="input-default"><b>Numero de Seguimiento:</b> {{numero_seguimiento}}</label>
             </b-col>
           </b-row>
+          <div> <b>Comentarios:</b>  {{comentarios}}
+          </div>
           <b-row  align-v="end" class="-align-right">
           <b-button align="right" variant="danger"  v-if="estado_pedido == 'Esperando confirmación de stock'" @click="cancelarPedido">Cancelar</b-button>
           </b-row>
@@ -53,6 +55,14 @@ mutation updateEstadoPedido($_eq: Int!, $estado_pedido: String!) {
 }
 `;
 
+const GET_PEDIDO_COMENTARIO = gql`
+query getPedido($_eq: Int!) {
+  pedido(where: {id: {_eq: $_eq}}) {
+    comentarios
+  }
+}
+`;
+
 
 
 export default {
@@ -64,9 +74,12 @@ export default {
   data(){
       return{
           pedido_y_detalle: [],
+          pedido: [],
           estado_pedido: "",
           numero_seguimiento: "",
-          nombre_empresa_despacho: ""
+          nombre_empresa_despacho: "",
+          comentarios: "",
+
           
       };
   },
@@ -79,6 +92,14 @@ export default {
         }
         } 
     },
+    pedido:{
+      query: GET_PEDIDO_COMENTARIO,
+      variables() {
+        return {
+          "_eq": this.id
+        }
+      }
+    },
     
   },
 
@@ -87,6 +108,7 @@ export default {
       this.estado_pedido = this.pedido_y_detalle[0].estado_pedido;
       this.numero_seguimiento = this.pedido_y_detalle[0].numero_seguimiento;
       this.nombre_empresa_despacho = this.pedido_y_detalle[0].nombre_empresa_despacho;
+      this.comentarios = this.pedido[0].comentarios;
     }
   },
   async created(){

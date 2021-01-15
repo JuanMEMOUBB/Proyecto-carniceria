@@ -1,8 +1,7 @@
 <template>
     <div>
       <b-container>
-        <h1>Detalle Pedido</h1>
-        id del pedido: {{id}}
+        <h1>Detalle del Pedido</h1>
          <b-button class="mr-1" onClick="history.go(-1);">Volver</b-button>
         <detalle-pedido-item v-for="pedido_y_detalle in pedido_y_detalle" :key="pedido_y_detalle.id_producto" :pedido_y_detalle="pedido_y_detalle" class="detalle-pedido-item" />
         <div>
@@ -23,6 +22,11 @@
               <b-form-input id="input-default" placeholder="Cambiar" v-model="numero_seguimiento"></b-form-input>
             </b-col>
           </b-row>
+          <label for="comentarios">Comentarios:</label>
+          <textarea id="comentarios" name="comentarios" rows="4" cols="135" style="max-width:100%;" v-model="comentarios">
+          
+          </textarea>
+          <br><br>
 
         </div>
         <form @submit.prevent="submit">
@@ -66,9 +70,17 @@ query GetDetallePorId($_id: Int! ) {
 `;
 
 const UPDATE_ESTADO_PEDIDO = gql`
-mutation updateEstadoPedido($_eq: Int!, $estado_pedido: String!, $nombre_empresa_despacho: String!, $numero_seguimiento: String!) {
-  update_pedido(where: {id: {_eq: $_eq}}, _set: {estado_pedido: $estado_pedido, nombre_empresa_despacho: $nombre_empresa_despacho, numero_seguimiento: $numero_seguimiento}) {
+mutation updateEstadoPedido($_eq: Int!, $estado_pedido: String!, $nombre_empresa_despacho: String!, $numero_seguimiento: String!, $comentarios: String) {
+  update_pedido(where: {id: {_eq: $_eq}}, _set: {estado_pedido: $estado_pedido, nombre_empresa_despacho: $nombre_empresa_despacho, numero_seguimiento: $numero_seguimiento, comentarios: $comentarios}) {
     affected_rows
+  }
+}
+`;
+
+const GET_PEDIDO_COMENTARIO = gql`
+query getPedido($_eq: Int!) {
+  pedido(where: {id: {_eq: $_eq}}) {
+    comentarios
   }
 }
 `;
@@ -84,9 +96,11 @@ export default {
   data(){
       return{
           pedido_y_detalle: [],
+          pedido: [],
           estado_pedido: "",
           numero_seguimiento: "",
-          nombre_empresa_despacho: ""
+          nombre_empresa_despacho: "",
+          comentarios: ""
           
       };
   },
@@ -99,6 +113,14 @@ export default {
         }
         } 
     },
+    pedido:{
+      query: GET_PEDIDO_COMENTARIO,
+      variables() {
+        return {
+          "_eq": this.id
+        }
+      }
+    },
     
   },
 
@@ -107,6 +129,7 @@ export default {
       this.estado_pedido = this.pedido_y_detalle[0].estado_pedido;
       this.numero_seguimiento = this.pedido_y_detalle[0].numero_seguimiento;
       this.nombre_empresa_despacho = this.pedido_y_detalle[0].nombre_empresa_despacho;
+      this.comentarios = this.pedido[0].comentarios;
     }
   },
   async created(){
@@ -128,9 +151,12 @@ export default {
           "estado_pedido" : this.estado_pedido,
           "nombre_empresa_despacho": this.nombre_empresa_despacho,
           "numero_seguimiento": this.numero_seguimiento,
+          "comentarios": this.comentarios
         }
       })
 
+
+      alert("Pedido Modificado!")
     }
   }
     
