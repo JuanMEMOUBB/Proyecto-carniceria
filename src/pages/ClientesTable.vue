@@ -11,14 +11,12 @@
         
         <thead>
           <tr>
-            <th style="width:17%" v-for="column in columns" v-bind:key="column" >
-              <a href="#" 
-                v-on:click= "sortBy(column)"
-                v-bind:class="{active: sortKey == column}"
-                >
-                {{ column }}
-              </a>
-            </th>
+            <th style="width: 17%"  @click="sort('nombre')">Nombre</th>
+            <th style="width: 17%" @click="sort('apellido_paterno')">Apellidos</th>
+            <th style="width: 17%" @click="sort('ciudad')">Ciudad</th>
+            <th style="width: 17%" @click="sort('email')">Email</th>
+            <th style="width: 17%">Telefono</th>
+            <th style="width: 17%">Celular</th> 
           </tr>
         </thead>
         
@@ -26,7 +24,7 @@
           <tr v-for="people in  filterPeople" v-bind:key="people.id">
             <td>{{ people.nombre }}</td>
             <td>{{ people.apellido_paterno }}  {{people.apellido_materno }}</td>
-            <td>{{ onlyCity(people.direccion) }}</td>
+            <td>{{ people.ciudad }}</td>
             <td>{{ people.email }}</td>
             <td>{{ people.telefono_celular }}</td>
             <td>{{ people.telefono_fijo }}</td>
@@ -52,7 +50,7 @@ const GET_CLIENTES = gql`
     nombre
     apellido_paterno
     apellido_materno
-    direccion
+    ciudad
     telefono_celular
     telefono_fijo
   }
@@ -89,7 +87,8 @@ export default {
     
     value: "1",
 
-    sortKey: '',
+    currentSort:'pedido.estado_pedido',
+    currentSortDir:'asc',
     
     search: '',
     
@@ -115,10 +114,13 @@ export default {
     }    
   },
   methods: {
-    sortBy: function(sortKey) {
-      this.reverse = (this.sortKey === sortKey) ? ! this.reverse : false;
-      this.sortKey = sortKey;
-    },
+    sort:function(sortColumn) {
+    //if s == current sort, reverse
+    if(sortColumn === this.currentSort) {
+      this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+    }
+    this.currentSort = sortColumn;
+  },
     
     onlyCity: function(value){
 
@@ -144,7 +146,7 @@ export default {
       }
       if(this.value === "2") {
       return this.cliente.filter((people) => {
-        return  people.direccion.toLowerCase().match(this.search.toLowerCase());
+        return  people.ciudad.toLowerCase().match(this.search.toLowerCase());
       });
       }
 

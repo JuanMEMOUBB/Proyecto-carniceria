@@ -19,19 +19,9 @@
         <table class="table" style="width:100%">
           <thead>
             <tr>
-              <th
-                style="width:40%"
-                v-for="column in columns"
-                v-bind:key="column"
-              >
-                <a
-                  href="#"
-                  v-on:click="sortBy(column)"
-                  v-bind:class="{ active: sortKey == column }"
-                >
-                  {{ column }}
-                </a>
-              </th>
+              <th style="width:40%">Nombre</th>
+              <th style="width:40%">Precio</th>
+              <th style="width:40%">Categoria</th>
             </tr>
           </thead>
         
