@@ -2,6 +2,7 @@
     <div>
       <b-container>
         <h1>Detalle del Pedido</h1>
+        <h2>Estado: {{estado_pedido}}</h2>
          <b-button class="mr-1" onClick="history.go(-1);">Volver</b-button>
         <detalle-pedido-item v-for="pedido_y_detalle in pedido_y_detalle" :key="pedido_y_detalle.id_producto" :pedido_y_detalle="pedido_y_detalle" class="detalle-pedido-item" />
         <div>

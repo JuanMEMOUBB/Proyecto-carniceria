@@ -87,7 +87,7 @@ export default {
         return{
           "estado_pedido": this.estado
         }
-      }
+      }, refetchQueries: GET_PEDIDOS
     }
   },
   methods:{
