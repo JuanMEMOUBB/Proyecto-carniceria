@@ -9,11 +9,11 @@
       <table class="table table-striped" style="width:100%">        
         <thead>
           <tr>
-            <th style="width: 16.6%" @click="sort('estado_pedido')">Estado</th>
-            <th style="width: 16.6%" @click="sort('direccion')">Dirección</th>
-            <th style="width: 16.6%" @click="sort('peso')">Peso Total</th>
-            <th style="width: 16.6%" @click="sort('precio')">Precio Total</th>
-            <th style="width: 16.6%" @click="sort('nombre_empresa_despacho')">Empresa de despacho</th>
+            <th class="sortRow" style="width: 16.6%" @click="sort('estado_pedido')">Estado</th>
+            <th class="sortRow" style="width: 16.6%" @click="sort('direccion')">Dirección</th>
+            <th class="sortRow" style="width: 16.6%" @click="sort('peso')">Peso Total</th>
+            <th class="sortRow" style="width: 16.6%" @click="sort('precio')">Precio Total</th>
+            <th class="sortRow" style="width: 16.6%" @click="sort('nombre_empresa_despacho')">Empresa de despacho</th>
             <th style="width: 16.6%">Numero de seguimiento</th>            
           </tr>
         </thead>
@@ -150,3 +150,10 @@ export default {
     
 }
 </script>
+
+<style scoped>
+.sortRow {
+  cursor: pointer;
+  color: rgb(29, 207, 239);
+}
+</style>

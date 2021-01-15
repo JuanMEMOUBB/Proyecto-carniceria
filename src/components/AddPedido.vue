@@ -17,6 +17,7 @@ query getIdCliente($id_user: String!) {
   cliente(where: {user: {id: {_eq: $id_user}}}) {
     id,
     direccion
+    ciudad
   }
 }
 `;
@@ -132,7 +133,7 @@ export default {
   methods: {
     submit() {
       
-      const direccion = this.cliente[0].direccion;
+      const direccion = this.cliente[0].direccion + ", " + this.cliente[0].ciudad;
        const  precio  = this.cartTotalPrice;
        const  peso  = this.cartTotalWeight;
        this.$apollo.mutate({
