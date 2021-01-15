@@ -7,12 +7,12 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <a class="nav-link " href="#estd" @click="estado='%'">Todas</a>
-        <a class="nav-link " href="#estd" @click="estado='esperando confirmación de stock%'">Esperando confirmación de stock</a>
-        <a class="nav-link " href="#estd" @click="estado='pedido confirmado%'">Pedido Confirmados</a>
-        <a class="nav-link " href="#estd" @click="estado='enviado%'">Enviados</a>
-        <a class="nav-link " href="#estd" @click="estado='completado%'">Completados</a>
-        <a class="nav-link " href="#estd" @click="estado='cancelado%'">Cancelados</a>
+        <a class="nav-link "  @click="estado='%'">Todas</a>
+        <a class="nav-link "  @click="estado='esperando confirmación de stock%'">Esperando confirmación de stock</a>
+        <a class="nav-link "  @click="estado='pedido confirmado%'">Pedido Confirmados</a>
+        <a class="nav-link "  @click="estado='enviado%'">Enviados</a>
+        <a class="nav-link "  @click="estado='completado%'">Completados</a>
+        <a class="nav-link "  @click="estado='cancelado%'">Cancelados</a>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

@@ -15,7 +15,8 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 const GET_CLIENTE = gql`
 query getIdCliente($id_user: String!) {
   cliente(where: {user: {id: {_eq: $id_user}}}) {
-    id
+    id,
+    direccion
   }
 }
 `;
@@ -42,7 +43,7 @@ mutation addDetallePedido($id_pedido: Int!, $id_producto: Int, $pesoIndividual: 
     id_pedido: $id_pedido, 
     id_producto: $id_producto, 
     peso: $pesoIndividual, 
-    al_vacio: $al_vacio
+    al_vacio: $al_vacio,
     }
   ) {
     returning {
@@ -131,7 +132,7 @@ export default {
   methods: {
     submit() {
       
-      const { direccion } = this.$data;
+      const direccion = this.cliente[0].direccion;
        const  precio  = this.cartTotalPrice;
        const  peso  = this.cartTotalWeight;
        this.$apollo.mutate({
@@ -191,7 +192,7 @@ export default {
 
     async insertPedido(){
 
-      const { direccion } = this.$data;
+      const direccion = this.cliente[0].direccion;
        const  precio  = this.cartTotalPrice;
        const  peso  = this.cartTotalWeight;
 

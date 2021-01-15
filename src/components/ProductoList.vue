@@ -26,12 +26,12 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <a class="nav-link active" href="#prod" @click="categoria='%'">Todas</a>
-        <a class="nav-link " href="#prod" @click="categoria='cerdo%'">Cerdo</a>
-        <a class="nav-link " href="#prod" @click="categoria='cordero%'">Cordero</a>
-        <a class="nav-link " href="#prod" @click="categoria='pavo%'">Pavo</a>
-        <a class="nav-link " href="#prod" @click="categoria='pollo%'">Pollo</a>
-        <a class="nav-link " href="#prod" @click="categoria='vacuno%'">Vacuno</a>
+        <a class="nav-link active"  @click="categoria='%'">Todas</a>
+        <a class="nav-link "  @click="categoria='cerdo%'">Cerdo</a>
+        <a class="nav-link "  @click="categoria='cordero%'">Cordero</a>
+        <a class="nav-link "  @click="categoria='pavo%'">Pavo</a>
+        <a class="nav-link "  @click="categoria='pollo%'">Pollo</a>
+        <a class="nav-link "  @click="categoria='vacuno%'">Vacuno</a>
       </b-navbar-nav>
       
 

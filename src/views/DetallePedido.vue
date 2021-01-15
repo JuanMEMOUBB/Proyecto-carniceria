@@ -118,7 +118,7 @@ export default {
       if(!this.nombre_empresa_despacho){
         this.nombre_empresa_despacho = "N/A"
       }
-      if(this.numero_seguimiento = "N/A"){
+      if(!this.numero_seguimiento){
         this.numero_seguimiento = "N/A"
       }
       this.$apollo.mutate({
