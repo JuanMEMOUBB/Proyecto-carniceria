@@ -10,6 +10,7 @@
         <a class="nav-link "  @click="estado='%'">Todas</a>
         <a class="nav-link "  @click="estado='esperando confirmación de stock%'">Esperando confirmación de stock</a>
         <a class="nav-link "  @click="estado='pedido confirmado%'">Pedido Confirmados</a>
+        <a class="nav-link "  @click="estado='en proceso%'">En Proceso</a>
         <a class="nav-link "  @click="estado='enviado%'">Enviados</a>
         <a class="nav-link "  @click="estado='completado%'">Completados</a>
         <a class="nav-link "  @click="estado='cancelado%'">Cancelados</a>
