@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <div id="vue-table" style="overflow-x:auto;">
+      <br>
       <div>
         <b-button @click="agregar($event.target)" variant="success">Agregar Producto</b-button>
       </div>
+      <br>
 
       <input
         type="text"
@@ -12,7 +14,7 @@
         class="form-control"
       />
       <input type="radio" id="1" value="1" name="Categoria" v-model="value" />
-      <label for="1">Por Producto </label>
+      <label for="1">Por Nombre </label>
       <input type="radio" id="2" value="2" name="Categoria" v-model="value" />
       <label for="2">Por Categoría</label>
       <div ref="content">

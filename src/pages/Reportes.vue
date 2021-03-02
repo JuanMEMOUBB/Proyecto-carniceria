@@ -1,5 +1,6 @@
 <template>
 <div>
+  <br>
     <div class="row">
         <div class= "col-md-6">
             <b-card
@@ -112,7 +113,23 @@
             </b-container>
           </b-modal>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+
 </div>    
+
 </template>
 
 <script>

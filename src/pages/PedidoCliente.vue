@@ -18,7 +18,7 @@
     </b-collapse>
   </b-navbar>
   -->
-  <carrusel/>
+ 
   <b-navbar toggleable="md" type="dark" variant="dark"/>
 
   <div class="list-of-pedidos">
@@ -46,7 +46,7 @@
         </tbody>
     </table>
   </div>
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 </template>
 
