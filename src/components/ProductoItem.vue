@@ -1,12 +1,7 @@
 <template>
-  
-
   <div :key="producto.id">
     <div class="card">
-      <img
-        class="card-img-top"
-        :src="producto.imagen"
-      />
+      <img class="card-img-top" :src="producto.imagen" />
       <div class="card-block">
         <figure class="profile" v-if="producto.id_categoria == 1">
           <img
@@ -66,41 +61,70 @@
       <div class="card-footer">
         
         <b-button v-b-modal="modalId(producto.id)">Ver Producto</b-button>
+        
 
-        <b-modal :id="'modal' + producto.id" title="Detalle Producto">
+        <b-modal :id="'modal' + producto.id" title="Detalle Producto"
+        cancel-title="Cancelar">
           <div :key="producto.id">
-            
-            <img
-        class="card-img-top"
-        :src="producto.imagen"
-      />
-      <h2>{{ producto.nombre }}</h2>
+            <img class="card-img-top" :src="producto.imagen" />
+            <h2>{{ producto.nombre }}</h2>
             <div class="meta" v-if="producto.id_categoria == 1">
-          <a>Cerdo</a>
-        </div>
-        <div class="meta" v-if="producto.id_categoria == 4">
-          <a>Cordero</a>
-        </div>
-        <div class="meta" v-if="producto.id_categoria == 5">
-          <a>Pavo</a>
-        </div>
-        <div class="meta" v-if="producto.id_categoria == 3">
-          <a>Pollo</a>
-        </div>
-        <div class="meta" v-if="producto.id_categoria == 2">
-          <a>Vacuno</a>
-        </div>
+              <a>Cerdo</a>
+            </div>
+            <div class="meta" v-if="producto.id_categoria == 4">
+              <a>Cordero</a>
+            </div>
+            <div class="meta" v-if="producto.id_categoria == 5">
+              <a>Pavo</a>
+            </div>
+            <div class="meta" v-if="producto.id_categoria == 3">
+              <a>Pollo</a>
+            </div>
+            <div class="meta" v-if="producto.id_categoria == 2">
+              <a>Vacuno</a>
+            </div>
             <h3>Precio: $ {{ producto.precio }}</h3>
-            <p>{{producto.descripcion}}</p>
+            <p>{{ producto.descripcion }}</p>
           </div>
-          <div>
-          <b-button @click="updateCantidad('resta')" class="cart_button" variant="danger">Quitar</b-button>
-        <span class="cart_quantity">{{ cantidad }}</span>
-        <b-button @click="updateCantidad('suma')" class="cart_button" variant="success">Agregar</b-button>
-        </div>
-        <b-button @click="agregarCarrito(cantidad)" class="agregarCarrito" variant="primary">
-          Añadir al carrito
-        </b-button>
+          <b-row align-v="center">
+            <b-col align-v="center">
+            <b-button
+              @click="updateCantidad('resta')"
+              class="cart_button"
+              pill variant="danger"
+              >Quitar</b-button
+            >
+            </b-col>
+            <b-col align-v="center">
+            <h3>
+              <span class="cart_quantity">{{ cantidad }}</span> Kilos
+            </h3>
+            </b-col>
+            <b-col align-v="center">
+            <b-button
+              @click="updateCantidad('suma')"
+              class="cart_button"
+              pill variant="success"
+              >Agregar</b-button
+            >
+            </b-col>
+          </b-row>
+          <b-row class="text-center">
+            <b-col sm="2">
+            </b-col>
+            <b-col sm="7">
+            <b-button
+            @click="agregarCarrito(cantidad)"
+            class="agregarCarrito"
+            variant="primary"
+          >
+            Añadir al carrito
+          </b-button>
+            </b-col>
+            <b-col sm="3">
+            </b-col>
+          </b-row>
+          
         </b-modal>
       </div>
     </div>
@@ -114,7 +138,7 @@ export default {
 
   data() {
     return {
-      cantidad: 0
+      cantidad: 0,
     };
   },
 
@@ -143,8 +167,19 @@ export default {
 
         this.cantidad = 0;
       }
-    }
-  }
+      this.notifyVue("top", "center");
+    },
+    notifyVue(verticalAlign, horizontalAlign) {
+      const color = Math.floor(Math.random() * 4 + 1);
+      this.$notifications.notify({
+        message: `<span><b>Producto Agregado al carrito</b></span>`,
+        icon: "nc-icon nc-app",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: "success"
+      });
+    },
+  },
 };
 </script>
 
@@ -184,7 +219,6 @@ h5 {
   display: block;
   width: 300px;
   height: 300px;
-  
 }
 
 .card-title {

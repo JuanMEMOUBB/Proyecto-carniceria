@@ -32,7 +32,7 @@
 
       <sidebar-link to="/admin/icons">
         <i class="nc-icon nc-notes"></i>
-        <p>Cuentas</p>
+        <p>Datos de Ventas</p>
       </sidebar-link>
 
       

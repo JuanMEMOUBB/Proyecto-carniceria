@@ -300,10 +300,10 @@ export default {
         const color = Math.floor((Math.random() * 4) + 1)
         this.$notifications.notify(
           {
-            message: `<b>Cliente actualizado</b>`,
+            message: `<b>Perfil actualizado</b>`,
             icon: 'nc-icon nc-app',
-            horizontalAlign:'right',
-            verticalAlign: 'bottom',
+            horizontalAlign:'center',
+            verticalAlign: 'top',
             type: 'success'
           })
       }

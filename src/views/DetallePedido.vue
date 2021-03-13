@@ -23,28 +23,45 @@
               <b-form-input id="input-default" placeholder="Cambiar" v-model="numero_seguimiento"></b-form-input>
             </b-col>
           </b-row>
+          <b-row class="my-3">
+            <b-col sm="2">
           <label for="comentarios">Comentarios:</label>
-          <textarea id="comentarios" name="comentarios" rows="4" cols="135" style="max-width:100%;" v-model="comentarios">
-          
-          </textarea>
+          </b-col>
+          <b-col sm="10">
+          <textarea id="comentarios" name="comentarios" rows="4" cols="135" style="max-width:100%;" v-model="comentarios"></textarea>
+          </b-col>
           <br><br>
+          </b-row>
 
         </div>
         <form @submit.prevent="submit">
-          <input type="radio" id="Pedido Confirmado" value = "Pedido Confirmado" name="Estado" v-model="estado_pedido">
-          <label for="Pedido Confirmado">Pedido Confirmado</label>
-
+          <b-row>
+          <b-form-radio id="Pedido Confirmado" value = "Pedido Confirmado" name="Estado" v-model="estado_pedido">Pedido Confirmado</b-form-radio>
+          </b-row>
+          
+          <!--
+          <b-row>
           <input type="radio" id="En Proceso" value = "En Proceso" name="Estado" v-model="estado_pedido">
           <label for="En Proceso">En Proceso</label>
+          </b-row>
+          -->
 
-          <input type="radio" id="Enviado" value = "Enviado" name="Estado" v-model="estado_pedido">
-          <label for="Enviado">Enviado</label>
+          <b-row>
+          <b-form-radio id="En Proceso" value = "En Proceso" name="Estado" v-model="estado_pedido">En Proceso</b-form-radio>
+          </b-row>
 
-          <input type="radio" id="Completado" value = "Completado" name="Estado" v-model="estado_pedido">
-          <label for="Completado">Completado</label>
+          <b-row>
+          <b-form-radio id="Enviado" value = "Enviado" name="Estado" v-model="estado_pedido">Enviado</b-form-radio>
+          </b-row>
 
-          <input type="radio" id="Cancelado" value = "Cancelado" name="Estado" v-model="estado_pedido">
-          <label for="Cancelado">Cancelado</label>
+          <b-row>
+          <b-form-radio id="Completado" value = "Completado" name="Estado" v-model="estado_pedido">Completado</b-form-radio>
+          </b-row>
+
+          <b-row>
+          <b-form-radio id="Cancelado" value = "Cancelado" name="Estado" v-model="estado_pedido">Cancelado</b-form-radio>
+          </b-row>
+
           <br>
           <b-button variant="success" class="mr-1" type="submit" value="actualizar">Actualizar</b-button>
 
@@ -160,7 +177,17 @@ export default {
       })
 
 
-      alert("Pedido Modificado!")
+      this.notifyVue("top", "center");
+    },
+    notifyVue(verticalAlign, horizontalAlign) {
+      const color = Math.floor(Math.random() * 4 + 1);
+      this.$notifications.notify({
+        message: `<span><b>Pedido actualizado</b></span>`,
+        icon: "nc-icon nc-app",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: "success"
+      });
     }
   }
     

@@ -31,7 +31,7 @@
 
       <sidebar-link to="/admin/icons">
         <i class="nc-icon nc-notes"></i>
-        <p>Cuentas</p>
+        <p>Datos de ventas</p>
       </sidebar-link>
 
       

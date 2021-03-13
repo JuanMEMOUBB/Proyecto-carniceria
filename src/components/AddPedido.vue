@@ -1,9 +1,14 @@
 <template>
   <div>
-    <form class="submit-form" @submit.prevent="submit">
-      
-      <input class="btn btn-success pull-right" type="submit" value="Solicitar stock">
-    </form>
+
+    <button
+                  type="submit"
+                  class="btn btn-info btn-fill float-right"
+                  @click.prevent="submit"
+                >
+                  Ingresar Pedido
+                </button>
+    
   </div>
 </template>
 
@@ -154,23 +159,22 @@ export default {
         }
 
       });
+      this.notifyVue()
       this.direccion = "";
       this.peso = "";
       this.precio = "";
-
-    //  let pesoIndividual;
-    //  let id_producto;
-      //const id_pedido = id;
-
-      //console.log("espera mi id: "+ this.getIdPedido);
-      //const pedidoID = await this.getIdPedido;
-      
-
-      
-
-      //crear metodo que contenga la mutacion
-     // this.$store.dispatch('clearCart');
     },
+    notifyVue () {
+        const color = Math.floor((Math.random() * 4) + 1)
+        this.$notifications.notify(
+          {
+            message: `<b>Pedido ingresado, para más información revisar en pestaña de pedidos</b>`,
+            icon: 'nc-icon nc-app',
+            horizontalAlign:'center',
+            verticalAlign: 'top',
+            type: 'success'
+          })
+      },
 
     insertarDetalle(pedidoId){
       for(let i=0;i<this.cart.length;i++){

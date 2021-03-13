@@ -1,23 +1,41 @@
 <template>
     <div>
       <b-container>
+        <br>
         <b-button class="mr-1" onClick="history.go(-1);">Volver</b-button>
         <h1>Detalle del pedido</h1>
         <h2>Estado: {{estado_pedido}}</h2>         
         <detalle-pedido-item v-for="pedido_y_detalle in pedido_y_detalle" :key="pedido_y_detalle.id_producto" :pedido_y_detalle="pedido_y_detalle" class="detalle-pedido-item" />
         <div>
+
           <b-row class="my-1">
-            <b-col sm="2">
-              <label for="input-default"><b>Empresa de Despacho:</b> {{nombre_empresa_despacho}} </label>
+            <b-col sm="4">
+              <label for="input-default"><h3>Empresa de Despacho: </h3></label>
+            </b-col>
+            <b-col sm="8">
+              <label for="input-default"><h3>{{nombre_empresa_despacho}}</h3> </label>
             </b-col>
           </b-row>
+
           <b-row class="my-2">
-            <b-col sm="2">
-              <label for="input-default"><b>Numero de Seguimiento:</b> {{numero_seguimiento}}</label>
+            <b-col sm="4">
+              <label for="input-default"><h3>Numero de Seguimiento: </h3></label>
+            </b-col>
+            <b-col sm="8">
+              <label for="input-default"><h3>{{numero_seguimiento}}</h3> </label>
             </b-col>
           </b-row>
-          <div> <b>Comentarios:</b>  {{comentarios}}
-          </div>
+
+          <b-row class="my-3">
+            <b-col sm="4">
+              <label for="input-default"><h3>Comentarios: </h3></label>
+            </b-col>
+            <b-col sm="8">
+              <label for="input-default"><h3>{{comentarios}}</h3> </label>
+            </b-col>
+          </b-row>
+
+        
           <b-row  align-v="end" class="-align-right">
           <b-button align="right" variant="danger"  v-if="estado_pedido == 'Esperando confirmación de stock'" @click="cancelarPedido">Cancelar</b-button>
           </b-row>

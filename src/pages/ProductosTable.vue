@@ -47,7 +47,8 @@
       <b-modal
         :id="infoModal.id"
         title="Producto"
-        ok-only
+        ok-tittle
+        cancel-title="Cancelar"
         @hide="resetInfoModal"
       >
         <fieldset>
@@ -189,14 +190,18 @@
               </div>
             </form>
           </div>
-
+          <b-row class="text-center">
+            <b-col>
           <b-button
-            size="sm"
+            size="lg"
+            variant="success"
             @click="editarInfo()"
             class="mr-1"
             :disabled="!todasValidaciones"
             >Confirmar</b-button
           >
+            </b-col>
+          </b-row>
         </fieldset>
       </b-modal>
     </div>
@@ -397,7 +402,7 @@ export default {
           },
           refetchQueries: GET_PRODUCTOS
         });
-        this.notifyVue("top", "center");
+        this.notifyVue2("top", "center");
       }
     },
 
@@ -408,7 +413,18 @@ export default {
     notifyVue(verticalAlign, horizontalAlign) {
       const color = Math.floor(Math.random() * 4 + 1);
       this.$notifications.notify({
-        message: `<span>Producto <b>Registrado.</span>`,
+        message: `<span><b>Producto Registrado</b></span>`,
+        icon: "nc-icon nc-app",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: "success"
+      });
+    },
+
+    notifyVue2(verticalAlign, horizontalAlign) {
+      const color = Math.floor(Math.random() * 4 + 1);
+      this.$notifications.notify({
+        message: `<span><b>Producto Actualizado</b></span>`,
         icon: "nc-icon nc-app",
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
