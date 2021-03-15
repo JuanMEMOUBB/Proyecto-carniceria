@@ -41,7 +41,7 @@
               class="btn btn-primary btn-margin"
               @click.prevent="login"
             >
-              Login
+              Ingresar
             </button>
           </li>
 

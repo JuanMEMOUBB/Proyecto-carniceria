@@ -65,6 +65,7 @@
 
       </div>
       -->
+      <!--
       <div class="row">
         <div class="col-md-8">
           <chart-card :chart-data="lineChart.data"
@@ -88,7 +89,9 @@
           </chart-card>
         </div>
 
-        <div class="col-md-4">
+        -->
+
+        <div class="col-md-8">
           <chart-card :chart-data="pieChart.data" chart-type="Pie">
             <template slot="header">
               <h4 class="card-title">Pedidos</h4>
@@ -119,11 +122,13 @@
             chart-type="Bar">
             <template slot="header">
               <h4 class="card-title">Venta de Productos</h4>
-              <p class="card-category">Del mes pasado</p>
+              <p class="card-category">Del día</p>
             </template>
             <template slot="footer">
               <div class="legend">
-                <i class="fa fa-circle text-info"></i> Kilogramos Vendidos
+                <i class="fa fa-circle text-info"></i> Kilos vendidos
+                <i class="fa fa-circle text-danger"></i> Kilos cancelados
+                <i class="fa fa-circle text-warning"></i> Kilos por confirmar
               </div>
               <hr>
               <div class="stats">
@@ -132,6 +137,8 @@
           </chart-card>
         </div>
 
+        
+<!--
         <div class="col-md-6">
           <chart-card
             :chart-data="barChart.data"
@@ -233,6 +240,7 @@
             </b-container>
           </b-modal>
         </div>
+        -->
         <!--
         <div class="col-md-6">
           <card>
@@ -271,7 +279,6 @@
         -->
       </div>
     </div>
-  </div>
 </template>
 <script>
   import ChartCard from 'src/components/Cards/ChartCard.vue'
@@ -402,12 +409,13 @@ query getProducto {
             }]
           ]
         },
+        //datos del gráfico
         barChartProductos: {
           data: {
             labels: [],
             series: [
-              [10,20],
-              [30,30],
+              [30,20,10],
+              [5,5,3],
               [0,5,10]
             ]
             },
